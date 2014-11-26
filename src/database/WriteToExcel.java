@@ -30,7 +30,7 @@ public class WriteToExcel implements FileWriter{
         	skipRows --;
         }
         
-        for (Question q : facade.getQuestions()) {
+        for (Question q : facade.getAllQuestions()) {
             Row row = sheet.createRow(rownum++);
             int cellnum = 0;
             

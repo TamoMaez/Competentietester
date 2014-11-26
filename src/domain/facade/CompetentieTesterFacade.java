@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import database.FileReader;
+import database.FileWriter;
 import domain.Category;
 import domain.Question;
 import domain.questionSelectorStrategy.QuestionSelector;
@@ -18,7 +20,9 @@ public abstract class CompetentieTesterFacade {
 	protected List<Question> questions;
 	protected QuestionSelector questionSelector = new RandomSelector(); // -> List<Question>
 	protected ScoreCalculator scoreCalculator; // -> returns a score/100
-	protected int numberOfQuestions = 4;
+	protected int numberOfQuestions = 9;
+	protected FileWriter writer;
+	protected FileReader reader;
 	
 	
 	public CompetentieTesterFacade() {
@@ -26,7 +30,11 @@ public abstract class CompetentieTesterFacade {
 		questions = new ArrayList<Question>();
 	}
 	
-	public List<Question> getQuestions() {
+	public List<Question> getAllQuestions() {
+		return this.questions;
+	}
+	
+	public List<Question> selectQuestions() {
 		return this.questionSelector.selectQuestions(this.questions, numberOfQuestions);
 	}
 	

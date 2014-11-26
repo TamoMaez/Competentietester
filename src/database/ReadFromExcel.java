@@ -126,7 +126,7 @@ public class ReadFromExcel implements FileReader{
 		return question;
 	}
 
-	public static void main(String[] args) throws IOException {
+	/*public static void main(String[] args) throws IOException {
 		ReadFromExcel reader = new ReadFromExcel();
 		AdministratorFacade facade = new AdministratorFacade();
 		reader.read("res/vragen-uit-excel.xlsx", facade);
@@ -145,5 +145,5 @@ public class ReadFromExcel implements FileReader{
 			System.out.println(options.substring(0, options.length()-1));
 			System.out.println();
 		}
-	  }
+	  }*/
 }

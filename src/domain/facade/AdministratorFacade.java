@@ -3,6 +3,8 @@ package domain.facade;
 import java.util.ArrayList;
 import java.util.List;
 
+import database.FileReader;
+import database.FileWriter;
 import domain.Category;
 import domain.DomainException;
 import domain.Feedback;
@@ -18,6 +20,22 @@ public class AdministratorFacade extends CompetentieTesterFacade {
 	
 	public AdministratorFacade() {
 		super();	
+	}
+	
+	public void setReader(FileReader reader){
+		this.reader = reader;
+	}
+	
+	public void setWriter(FileWriter writer){
+		this.writer = writer;
+	}
+	
+	public void read(String file){
+		reader.read(file, this);
+	}
+	
+	public void write(String file){
+		writer.write(file, this);
 	}
 	
 	public void addQuestion(Question question) {
@@ -49,7 +67,11 @@ public class AdministratorFacade extends CompetentieTesterFacade {
 			category.addFeedback(new Feedback(feedbackText));
 		}
 		
-		this.categories.put(title, category);
+		addCategory(category);
+	}
+	
+	public void addCategory(Category category){
+		this.categories.put(category.getTitle(), category);
 	}
 	
 	// ? moet dit niet question.get(question).addOption zijn ?
@@ -106,4 +128,5 @@ public class AdministratorFacade extends CompetentieTesterFacade {
 		this.setScoreCalculator(scorecalculator);
 	}
 		
+	
 }
