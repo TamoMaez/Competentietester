@@ -145,24 +145,5 @@ public class ReadFromExcel implements FileReader{
 			System.out.println(options.substring(0, options.length()-1));
 			System.out.println();
 		}
-		
-		File currentDir = new File("res"); // current directory
-		displayDirectoryContents(currentDir);
 	  }
-	
-	public static void displayDirectoryContents(File dir) {
-		try {
-			File[] files = dir.listFiles();
-			for (File file : files) {
-				if (file.isDirectory()) {
-					System.out.println("directory:" + file.getCanonicalPath());
-					displayDirectoryContents(file);
-				} else {
-					System.out.println("     file:" + file.getName());
-				}
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
 }
