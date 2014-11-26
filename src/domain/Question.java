@@ -101,6 +101,10 @@ public abstract class Question {
 		return this.timesAnswered;
 	}
 	
+	public int getMaxPointsForCategory(Category category){
+		return options.get(0).getScoreByCategory(category).getMaxPoints();
+	}
+	
 	public abstract void setOptions(List<Option> options);
 	
 	public abstract void addOption(Option option);

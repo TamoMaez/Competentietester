@@ -129,7 +129,7 @@ public class ReadFromExcel implements FileReader{
 	public static void main(String[] args) throws IOException {
 		ReadFromExcel reader = new ReadFromExcel();
 		AdministratorFacade facade = new AdministratorFacade();
-		reader.read("vragen-uit-excel.xlsx", facade);
+		reader.read("res/vragen-uit-excel.xlsx", facade);
 		for(Question q : facade.getQuestions()){
 			System.out.print("(");
 			for(Category c : q.getCategories()){
@@ -145,5 +145,24 @@ public class ReadFromExcel implements FileReader{
 			System.out.println(options.substring(0, options.length()-1));
 			System.out.println();
 		}
+		
+		File currentDir = new File("res"); // current directory
+		displayDirectoryContents(currentDir);
 	  }
+	
+	public static void displayDirectoryContents(File dir) {
+		try {
+			File[] files = dir.listFiles();
+			for (File file : files) {
+				if (file.isDirectory()) {
+					System.out.println("directory:" + file.getCanonicalPath());
+					displayDirectoryContents(file);
+				} else {
+					System.out.println("     file:" + file.getName());
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }
