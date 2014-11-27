@@ -71,7 +71,13 @@ public class AdministratorFacade extends CompetentieTesterFacade {
 	}
 	
 	public void addCategory(Category category){
+		System.out.println("==========================");
+		System.out.println("TEST:\n");
+		System.out.println(categories.size());
+		System.out.println("\n");
 		this.categories.put(category.getTitle(), category);
+		System.out.println(categories.size());
+		System.out.println("==========================");
 	}
 	
 	// ? moet dit niet question.get(question).addOption zijn ?

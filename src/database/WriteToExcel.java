@@ -69,12 +69,4 @@ public class WriteToExcel implements FileWriter{
         }
 	}
 	
-	public static void main(String[] args) throws IOException {
-		ReadFromExcel reader = new ReadFromExcel();
-		AdministratorFacade facade = new AdministratorFacade();
-		reader.read("res/vragen-uit-excel.xlsx", facade);
-		
-		WriteToExcel writer = new WriteToExcel();
-		writer.write("test.xlsx", facade);	
-	  }
 }

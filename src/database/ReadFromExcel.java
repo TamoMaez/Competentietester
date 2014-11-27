@@ -3,7 +3,6 @@ package database;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -12,7 +11,6 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import domain.Category;
 import domain.Option;
 import domain.Question;
 import domain.QuestionAnswerType;
@@ -90,7 +88,11 @@ public class ReadFromExcel implements FileReader{
 			}
 		}	
 		
-		facade.addQuestion(addCategories(trueOption, falseOptions, facade.createQuestion(statement, QuestionAnswerType.enumOf(qType))));
+		Question question = facade.createQuestion(statement, QuestionAnswerType.enumOf(qType));
+		
+		question = addCategories(trueOption, falseOptions, question);
+		
+		facade.addQuestion(question);
 	}
 	
 	private Question addCategories(Option trueOption, ArrayList<Option> falseOptions, Question question) {

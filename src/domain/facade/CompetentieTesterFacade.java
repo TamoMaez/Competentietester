@@ -42,6 +42,10 @@ public abstract class CompetentieTesterFacade {
 		return new ArrayList<Category> (this.categories.values());
 	}
 	
+	public Map<String, Category> getCategoriesMap() {
+		return this.categories;
+	}
+	
 	public Category getCategory(String naam) {
 		return this.categories.get(naam);
 	}
