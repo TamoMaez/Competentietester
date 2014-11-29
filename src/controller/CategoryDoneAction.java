@@ -50,7 +50,7 @@ public class CategoryDoneAction extends AbstractTestAction {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			getService().write("test.xlsx");
+			getService().write();
 		}
 		
 		List<Category> categories = getService().getCategories();

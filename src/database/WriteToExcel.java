@@ -2,7 +2,6 @@ package database;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -16,7 +15,7 @@ import domain.facade.AdministratorFacade;
 public class WriteToExcel implements FileWriter{
 	private int skipRows = 2;
 	
-	public void write(String targetFile, AdministratorFacade facade){
+	public void write(File targetFile, AdministratorFacade facade){
 		//Blank workbook
         XSSFWorkbook workbook = new XSSFWorkbook();
          
@@ -58,7 +57,7 @@ public class WriteToExcel implements FileWriter{
         
         try{
             //Write the workbook in file system
-            FileOutputStream out = new FileOutputStream(new File("res/"+ targetFile));
+            FileOutputStream out = new FileOutputStream(targetFile);
             workbook.write(out);
             out.close();
             System.out.println(targetFile + " written successfully.");

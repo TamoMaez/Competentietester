@@ -40,7 +40,7 @@ public class UserTypeDoneAction extends AbstractTestAction {
 			
 			getService().addCategory(getDetailPanel().getCreatedCategory());
 			
-			getService().write("test.xlsx");
+			getService().write();
 		}
 		
 		List<Category> categories = getService().getCategories();

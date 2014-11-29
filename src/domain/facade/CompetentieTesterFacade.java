@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import database.FileManager;
 import database.FileReader;
 import database.FileWriter;
 import domain.Category;
@@ -21,8 +22,7 @@ public abstract class CompetentieTesterFacade {
 	protected QuestionSelector questionSelector = new RandomSelector(); // -> List<Question>
 	protected ScoreCalculator scoreCalculator; // -> returns a score/100
 	protected int numberOfQuestions = 9;
-	protected FileWriter writer;
-	protected FileReader reader;
+	protected FileManager fileManager = new FileManager();
 	
 	
 	public CompetentieTesterFacade() {

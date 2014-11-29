@@ -1,7 +1,9 @@
 package database;
 
+import java.io.File;
+
 import domain.facade.AdministratorFacade;
 
 public interface FileWriter {
-	void write(String toFile, AdministratorFacade facade);
+	void write(File chooseFile, AdministratorFacade facade);
 }

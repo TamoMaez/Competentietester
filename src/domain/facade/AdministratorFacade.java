@@ -23,20 +23,12 @@ public class AdministratorFacade extends CompetentieTesterFacade {
 		super();	
 	}
 	
-	public void setReader(FileReader reader){
-		this.reader = reader;
+	public void read(){
+		fileManager.read(this);
 	}
 	
-	public void setWriter(FileWriter writer){
-		this.writer = writer;
-	}
-	
-	public void read(File file){
-		reader.read(file, this);
-	}
-	
-	public void write(String file){
-		writer.write(file, this);
+	public void write(){
+		fileManager.write(this);
 	}
 	
 	public void addQuestion(Question question) {

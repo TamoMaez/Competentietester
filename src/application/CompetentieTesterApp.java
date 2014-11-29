@@ -18,16 +18,13 @@ import controller.CategoryNewAction;
 import controller.CategoryOverviewAction;
 import controller.UserTypeDoneAction;
 import controller.UserTypeOverviewAction;
-import database.ReadFromExcel;
-import database.WriteToExcel;
 import domain.facade.AdministratorFacade;
 
 public class CompetentieTesterApp {
 	public static void main(String[] args) throws ViewException{
 
 		AdministratorFacade service = new AdministratorFacade();
-		service.setReader(new ReadFromExcel());
-		service.setWriter(new WriteToExcel());
+		service.read();
 		
 		CategoryOverviewAction categoryOverviewAction = new CategoryOverviewAction(service);
 		CategoryEditAction categoryEditAction = new CategoryEditAction(service);
@@ -63,14 +60,14 @@ public class CompetentieTesterApp {
 		categoryDoneAction.setView(mainView);
 		
 		// File kiezen
-		JFileChooser fileChooser = new JFileChooser();
+		/*JFileChooser fileChooser = new JFileChooser();
 		fileChooser.setCurrentDirectory(new File("res"));
 		int result = fileChooser.showOpenDialog(mainView);
 		if (result == JFileChooser.APPROVE_OPTION) {
 		    File selectedFile = fileChooser.getSelectedFile();
 		    System.out.println("Selected file: " + selectedFile.getAbsolutePath());
 		    service.read(selectedFile);
-		}
+		}*/
 		
 		mainView.setVisible(true);
 		

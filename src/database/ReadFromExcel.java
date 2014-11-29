@@ -22,7 +22,6 @@ public class ReadFromExcel implements FileReader{
 	private Iterator<Row> rowIterator;
 	private Iterator<Cell> cellIterator;
 	
-	@Override
 	public void read(String fileLocation, AdministratorFacade facade) {
 		read(new File(fileLocation), facade);
 	}
