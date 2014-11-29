@@ -26,6 +26,7 @@ public class CategoryDetailPanel extends JPanel {
 	private JComboBox<Category> categoryField;
 	private Category category;
 	private List<Category> categories;
+	private String initialCategoryTitle;
 	
 	public CategoryDetailPanel(Action action) {
 		setCategory(category);
@@ -114,8 +115,19 @@ public class CategoryDetailPanel extends JPanel {
 	}
 
 	public void setCategory(Category category) {
+		if(category == null) return;
 		this.category = category;
+		setInitialCategoryTitle(category.getTitle());
 		update();
+	}
+	
+	private void setInitialCategoryTitle(String t){
+		if(t == null) return;
+		this.initialCategoryTitle = t;
+	}
+	
+	public String getInitialCategoryTitle(){
+		return this.initialCategoryTitle;
 	}
 	
 	public Category getCreatedCategory(){

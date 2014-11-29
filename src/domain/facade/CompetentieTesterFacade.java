@@ -42,6 +42,10 @@ public abstract class CompetentieTesterFacade {
 		return new ArrayList<Category> (this.categories.values());
 	}
 	
+	public boolean containsCategory(String title){
+		return this.categories.containsKey(title);
+	}
+	
 	public Map<String, Category> getCategoriesMap() {
 		return this.categories;
 	}

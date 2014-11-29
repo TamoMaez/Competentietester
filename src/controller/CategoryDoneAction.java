@@ -29,14 +29,19 @@ public class CategoryDoneAction extends AbstractTestAction {
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand().equals("Save")){
 			
-			Iterator<Entry<String, Category>> it = getService().getCategoriesMap().entrySet().iterator();
+			/*Iterator<Entry<String, Category>> it = getService().getCategoriesMap().entrySet().iterator();
 		    while (it.hasNext()) {
 		        Map.Entry pairs = (Map.Entry)it.next();
 		        System.out.println(pairs.getKey() + " = " + pairs.getValue());
 		        if (pairs.getValue().equals(getDetailPanel().getCreatedCategory())) {
 		        	it.remove(); // avoids a ConcurrentModificationException
 		        }
-		    }
+		    }*/
+			
+			String initialCategoryTitle = getDetailPanel().getInitialCategoryTitle();
+			if(initialCategoryTitle != null && getService().containsCategory(initialCategoryTitle)){
+				getService().getCategoriesMap().remove(initialCategoryTitle);
+			}
 			
 			getService().addCategory(getDetailPanel().getCreatedCategory());
 			try {

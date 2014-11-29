@@ -1,7 +1,10 @@
 package application;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.JFileChooser;
 
 import view.MainView;
 import view.ViewException;
@@ -15,7 +18,6 @@ import controller.CategoryNewAction;
 import controller.CategoryOverviewAction;
 import controller.UserTypeDoneAction;
 import controller.UserTypeOverviewAction;
-import database.FileReader;
 import database.ReadFromExcel;
 import database.WriteToExcel;
 import domain.facade.AdministratorFacade;
@@ -26,7 +28,6 @@ public class CompetentieTesterApp {
 		AdministratorFacade service = new AdministratorFacade();
 		service.setReader(new ReadFromExcel());
 		service.setWriter(new WriteToExcel());
-		service.read("res/vragen-uit-excel.xlsx");
 		
 		CategoryOverviewAction categoryOverviewAction = new CategoryOverviewAction(service);
 		CategoryEditAction categoryEditAction = new CategoryEditAction(service);
@@ -50,8 +51,8 @@ public class CompetentieTesterApp {
 		userTypeOverviewAction.setWelcomePanel(welcomePanel);
 		
 		List<AbstractTestAction> actions = new ArrayList<AbstractTestAction>();
-		actions.add(userTypeOverviewAction);
-		//actions.add(categoryNewAction);
+		//actions.add(userTypeOverviewAction);
+		actions.add(categoryOverviewAction);
 
 		MainView mainView = new MainView(actions);
 	
@@ -60,6 +61,16 @@ public class CompetentieTesterApp {
 		categoryNewAction.setView(mainView);
 		categoryDoneAction.setView(mainView);
 		categoryDoneAction.setView(mainView);
+		
+		// File kiezen
+		JFileChooser fileChooser = new JFileChooser();
+		fileChooser.setCurrentDirectory(new File("res"));
+		int result = fileChooser.showOpenDialog(mainView);
+		if (result == JFileChooser.APPROVE_OPTION) {
+		    File selectedFile = fileChooser.getSelectedFile();
+		    System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+		    service.read(selectedFile);
+		}
 		
 		mainView.setVisible(true);
 		

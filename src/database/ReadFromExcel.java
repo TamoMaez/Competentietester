@@ -22,10 +22,16 @@ public class ReadFromExcel implements FileReader{
 	private Iterator<Row> rowIterator;
 	private Iterator<Cell> cellIterator;
 	
+	@Override
 	public void read(String fileLocation, AdministratorFacade facade) {
+		read(new File(fileLocation), facade);
+	}
+	
+	@Override
+	public void read(File rfile, AdministratorFacade facade) {
 		this.facade = facade;
 		try {
-			FileInputStream file = new FileInputStream(new File(fileLocation));
+			FileInputStream file = new FileInputStream(rfile);
 
 			// Maak Workbook instantie met een referentie naar de excelfile
 			XSSFWorkbook workbook = new XSSFWorkbook(file);
@@ -127,25 +133,4 @@ public class ReadFromExcel implements FileReader{
 		
 		return question;
 	}
-
-	/*public static void main(String[] args) throws IOException {
-		ReadFromExcel reader = new ReadFromExcel();
-		AdministratorFacade facade = new AdministratorFacade();
-		reader.read("res/vragen-uit-excel.xlsx", facade);
-		for(Question q : facade.getQuestions()){
-			System.out.print("(");
-			for(Category c : q.getCategories()){
-				System.out.print(" " + c.getTitle().toUpperCase());
-			}
-			System.out.print(" )");
-			System.out.println();
-			System.out.print(q.getQuestion() +": (" + q.getCorrectOptions().get(0).getStatement() + ")\n\t");
-			String options = "";
-			for(String option : q.getStatementsShuffled()) {
-				options += " " + option + ",";
-			}
-			System.out.println(options.substring(0, options.length()-1));
-			System.out.println();
-		}
-	  }*/
 }
