@@ -3,6 +3,7 @@ package database;
 import java.io.File;
 
 import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import domain.facade.AdministratorFacade;
 
@@ -12,34 +13,56 @@ public class FileManager {
 	
 	private FileReader reader;
 	private FileWriter writer;
+	private JFileChooser fileChooser;
 
+	public FileManager(){
+		fileChooser = new JFileChooser();
+		fileChooser.setCurrentDirectory(new File("res"));
+		fileChooser.setFileFilter(new FileNameExtensionFilter("Excel (.xlsx)","xlsx"));
+	}
+	
 	public void write(AdministratorFacade facade) {
-		writer.write(chooseFile(), facade);
+		File file = setSaveFile();
+		if(file != null){
+			writer.write(file, facade);
+		}
 	}
 
 	public void read(AdministratorFacade facade) {
-		File file = null;
-		while(file == null || !file.exists() || file.isDirectory()){
-			file = chooseFile();
+		File file = chooseFile();
+		if(file != null && setReader(file)){
+			reader.read(file, facade);
 		}
-		setReader(file);
-		reader.read(file, facade);
 	}
 	
-	private void setReader(File file) {
-		if(FilenameUtils.getExtension(file.getName()).equals("xlsx")){
-			this.reader = new ReadFromExcel();
-			this.writer = new WriteToExcel();
+	private boolean setReader(File file) {
+		switch(FilenameUtils.getExtension(file.getName())){
+			case "xlsx" :
+				this.reader = new ReadFromExcel();
+				this.writer = new WriteToExcel();
+				return true;
+			default : return false;
 		}
 	}
 
 	public File chooseFile(){
-		JFileChooser fileChooser = new JFileChooser();
-		fileChooser.setCurrentDirectory(new File("res"));
 		int result = fileChooser.showOpenDialog(null);
 		if (result == JFileChooser.APPROVE_OPTION) {
 		    File selectedFile = fileChooser.getSelectedFile();
-		    System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+		    System.out.println("Selected file to open: " + selectedFile.getAbsolutePath());
+		    return selectedFile;
+		}
+		return null;
+	}
+	
+	public File setSaveFile(){
+		int result = fileChooser.showSaveDialog(null);
+		if (result == JFileChooser.APPROVE_OPTION) {
+		    File selectedFile = fileChooser.getSelectedFile();
+		    if (!FilenameUtils.getExtension(selectedFile.getName()).equalsIgnoreCase("xlsx")) {
+		    	selectedFile = new File(selectedFile.toString() + ".xlsx");
+		    }
+		    System.out.println("Selected file to save: " + selectedFile.getAbsolutePath());
 		    return selectedFile;
 		}
 		return null;
