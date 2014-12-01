@@ -1,10 +1,7 @@
 package controller;
 
 import java.awt.event.ActionEvent;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import view.ViewException;
 import view.panels.CategoryDetailPanel;
@@ -29,15 +26,6 @@ public class CategoryDoneAction extends AbstractTestAction {
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand().equals("Save")){
 			
-			/*Iterator<Entry<String, Category>> it = getService().getCategoriesMap().entrySet().iterator();
-		    while (it.hasNext()) {
-		        Map.Entry pairs = (Map.Entry)it.next();
-		        System.out.println(pairs.getKey() + " = " + pairs.getValue());
-		        if (pairs.getValue().equals(getDetailPanel().getCreatedCategory())) {
-		        	it.remove(); // avoids a ConcurrentModificationException
-		        }
-		    }*/
-			
 			String initialCategoryTitle = getDetailPanel().getInitialCategoryTitle();
 			if(initialCategoryTitle != null && getService().containsCategory(initialCategoryTitle)){
 				getService().getCategoriesMap().remove(initialCategoryTitle);
@@ -50,7 +38,7 @@ public class CategoryDoneAction extends AbstractTestAction {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			getService().write();
+			getService().writeToCurrentFile();;
 		}
 		
 		List<Category> categories = getService().getCategories();

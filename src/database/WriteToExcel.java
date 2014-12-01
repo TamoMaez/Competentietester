@@ -8,6 +8,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import domain.Category;
+import domain.Option;
 import domain.Question;
 import domain.YesNoQuestion;
 import domain.facade.AdministratorFacade;
@@ -40,10 +41,16 @@ public class WriteToExcel implements FileWriter{
             row.createCell(cellnum++).setCellValue(vraagType);
             row.createCell(cellnum++).setCellValue(q.getQuestion());
             
-            row.createCell(cellnum++).setCellValue(q.getCorrectOptions().get(0).getStatement());
-            for(String option : q.getStatements()){
-            	if(q.getCorrectOptions().contains(option)) continue;
-            	row.createCell(cellnum++).setCellValue(option);
+            for(Option option : q.getCorrectOptions()){
+            	row.createCell(cellnum++).setCellValue(option.getStatement());
+            }
+            
+            if(!vraagType.equals("JaNeenVraag")){
+	            for(Option option : q.getOptions()){
+	            	if(!q.getCorrectOptions().contains(option)){
+	            		row.createCell(cellnum++).setCellValue(option.getStatement());
+	            	}
+	            }
             }
             
             for(Category c : q.getCategories()){

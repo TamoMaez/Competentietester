@@ -10,8 +10,7 @@ public class Category {
 	private Category mainCategory;
 	private List<Feedback> feedback;
 	
-	public Category() {
-	}
+	public Category() {}
 	
 	public Category(String title) {
 		setTitle(title);
