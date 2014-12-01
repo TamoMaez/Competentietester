@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -29,7 +30,9 @@ public class WelcomeView extends JFrame {
     	createButtons(userAction, adminAction);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Choose mode");
+        userTypeButtons.setLayout(new GridLayout(0,2));
         setLocationRelativeTo(null);
+        setResizable(false);
 	}
 	
 	private void createButtons(AbstractTestAction userAction, AbstractTestAction adminAction) {
