@@ -49,4 +49,12 @@ public class Option {
 		return null;
 	}
 	
+	public boolean equals(Object o){
+		if(o instanceof Option){
+			Option option = (Option) o;
+			if(option.getStatement().equals(this.getStatement())) return true;
+		}
+		return false;
+	}
+	
 }

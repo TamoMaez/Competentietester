@@ -1,55 +1,74 @@
 package application;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JFileChooser;
-
 import view.MainView;
 import view.ViewException;
+import view.WelcomeView;
 import view.panels.CategoryDetailPanel;
 import view.panels.CategoryOverviewPanel;
-import view.panels.WelcomePanel;
+import view.panels.QuestionDetailPanel;
+import view.panels.QuestionOverviewPanel;
 import controller.AbstractTestAction;
+import controller.AdminModeAction;
 import controller.CategoryDoneAction;
 import controller.CategoryEditAction;
 import controller.CategoryNewAction;
 import controller.CategoryOverviewAction;
-import controller.UserTypeDoneAction;
-import controller.UserTypeOverviewAction;
+import controller.QuestionDoneAction;
+import controller.QuestionEditAction;
+import controller.QuestionNewAction;
+import controller.QuestionOverviewAction;
+import controller.UserModeAction;
 import domain.facade.AdministratorFacade;
 
 public class CompetentieTesterApp {
 	public static void main(String[] args) throws ViewException{
-
 		AdministratorFacade service = new AdministratorFacade();
-		service.read();
+
+		// Modeactions
+		AdminModeAction adminAction = new AdminModeAction(service);
+		UserModeAction userAction = new UserModeAction(service);
 		
+		
+		// Categoryactions
 		CategoryOverviewAction categoryOverviewAction = new CategoryOverviewAction(service);
 		CategoryEditAction categoryEditAction = new CategoryEditAction(service);
 		CategoryNewAction categoryNewAction = new CategoryNewAction(service);
 		CategoryDoneAction categoryDoneAction = new CategoryDoneAction(service);
 		
-		UserTypeOverviewAction userTypeOverviewAction = new UserTypeOverviewAction(service);
-		UserTypeDoneAction userTypeDoneAction = new UserTypeDoneAction(service);
-		
-		WelcomePanel welcomePanel = new WelcomePanel(); // Nog actions adden
-		
+		// Categorypanels
 		CategoryOverviewPanel categoryOverviewPanel = new CategoryOverviewPanel(categoryEditAction, categoryNewAction);
 		CategoryDetailPanel categoryDetailPanel = new CategoryDetailPanel(categoryDoneAction);
 		
+		// attach panels to buttons
 		categoryOverviewAction.setOverviewPanel(categoryOverviewPanel);
 		categoryEditAction.setDetailPanel(categoryDetailPanel);
 		categoryNewAction.setDetailPanel(categoryDetailPanel);
 		categoryDoneAction.setDetailPanel(categoryDetailPanel);
 		categoryDoneAction.setOverviewPanel(categoryOverviewPanel);
-
-		userTypeOverviewAction.setWelcomePanel(welcomePanel);
+		
+		// Questionsactions
+		QuestionOverviewAction questionOverviewAction = new QuestionOverviewAction(service);
+		QuestionEditAction questionEditAction = new QuestionEditAction(service);
+		QuestionNewAction questionNewAction = new QuestionNewAction(service);
+		QuestionDoneAction questionDoneAction = new QuestionDoneAction(service);
+		
+		// Questionspanels
+		QuestionOverviewPanel questionOverviewPanel = new QuestionOverviewPanel(questionEditAction, questionNewAction);
+		QuestionDetailPanel questionDetailPanel = new QuestionDetailPanel(questionDoneAction);
+		
+		// attach panels to buttons
+		questionOverviewAction.setOverviewPanel(questionOverviewPanel);
+		questionEditAction.setDetailPanel(questionDetailPanel);
+		questionNewAction.setDetailPanel(questionDetailPanel);
+		questionDoneAction.setDetailPanel(questionDetailPanel);
+		questionDoneAction.setOverviewPanel(questionOverviewPanel);
 		
 		List<AbstractTestAction> actions = new ArrayList<AbstractTestAction>();
-		//actions.add(userTypeOverviewAction);
 		actions.add(categoryOverviewAction);
+		actions.add(questionOverviewAction);
 
 		MainView mainView = new MainView(actions);
 	
@@ -59,17 +78,18 @@ public class CompetentieTesterApp {
 		categoryDoneAction.setView(mainView);
 		categoryDoneAction.setView(mainView);
 		
-		// File kiezen
-		/*JFileChooser fileChooser = new JFileChooser();
-		fileChooser.setCurrentDirectory(new File("res"));
-		int result = fileChooser.showOpenDialog(mainView);
-		if (result == JFileChooser.APPROVE_OPTION) {
-		    File selectedFile = fileChooser.getSelectedFile();
-		    System.out.println("Selected file: " + selectedFile.getAbsolutePath());
-		    service.read(selectedFile);
-		}*/
+		questionOverviewAction.setView(mainView);
+		questionEditAction.setView(mainView);
+		questionNewAction.setView(mainView);
+		questionDoneAction.setView(mainView);
+		questionDoneAction.setView(mainView);
 		
-		mainView.setVisible(true);
+		adminAction.setOverviewPanel(mainView);
+		
+		WelcomeView mode = new WelcomeView(userAction, adminAction);
+		userAction.setView(mode);
+		adminAction.setView(mode);
+		mode.setVisible(true);
 		
 	}
 }

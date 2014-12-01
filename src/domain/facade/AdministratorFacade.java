@@ -31,6 +31,10 @@ public class AdministratorFacade extends CompetentieTesterFacade {
 		fileManager.write(this);
 	}
 	
+	public void writeToCurrentFile(){
+		fileManager.writeToCurrentFile(this);
+	}
+	
 	public void addQuestion(Question question) {
 		if(question == null) {
 			throw new DomainException("Question can't be NULL");

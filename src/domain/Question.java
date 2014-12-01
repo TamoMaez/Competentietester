@@ -10,8 +10,7 @@ public abstract class Question {
 	protected List<Option> options;
 	private int timesAnswered;
 	
-	public Question() {
-	}
+	public Question() {}
 	
 	public Question(String question){
 		setQuestion(question);
@@ -60,7 +59,7 @@ public abstract class Question {
 		this.categories.add(category);
 	}
 	
-	protected  List<Option>getOptions(){
+	public  List<Option>getOptions(){
 		return options;
 	}
 	
@@ -88,6 +87,17 @@ public abstract class Question {
 		for (Option option : this.options) {
 			if (option.isCorrect()) {
 				correctOptions.add(option);
+			}
+		}
+		return correctOptions;
+	}
+	
+	public List<String> getCorrectStatements() {
+		List<String> correctOptions = new ArrayList<>();
+		
+		for (Option option : this.options) {
+			if (option.isCorrect()) {
+				correctOptions.add(option.getStatement());
 			}
 		}
 		return correctOptions;
