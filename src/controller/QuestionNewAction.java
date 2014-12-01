@@ -26,10 +26,7 @@ public class QuestionNewAction extends AbstractTestAction {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		getDetailPanel().setQuestion(new Question());
 		
-		List<Question> questions = getService().getAllQuestions();
-		getDetailPanel().setQuestions(questions);
 		setPanelAsContentForView(getDetailPanel());	
 	}
 
