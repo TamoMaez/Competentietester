@@ -12,15 +12,19 @@ import view.panels.QuestionDetailPanel;
 import view.panels.QuestionOverviewPanel;
 import controller.AbstractTestAction;
 import controller.AdminModeAction;
-import controller.CategoryDoneAction;
-import controller.CategoryEditAction;
-import controller.CategoryNewAction;
-import controller.CategoryOverviewAction;
-import controller.QuestionDoneAction;
-import controller.QuestionEditAction;
-import controller.QuestionNewAction;
-import controller.QuestionOverviewAction;
+import controller.NewFileAction;
+import controller.OpenFileAction;
+import controller.SaveAsFileAction;
+import controller.SaveFileAction;
 import controller.UserModeAction;
+import controller.category.CategoryDoneAction;
+import controller.category.CategoryEditAction;
+import controller.category.CategoryNewAction;
+import controller.category.CategoryOverviewAction;
+import controller.question.QuestionDoneAction;
+import controller.question.QuestionEditAction;
+import controller.question.QuestionNewAction;
+import controller.question.QuestionOverviewAction;
 import domain.facade.AdministratorFacade;
 
 public class CompetentieTesterApp {
@@ -66,11 +70,19 @@ public class CompetentieTesterApp {
 		questionDoneAction.setDetailPanel(questionDetailPanel);
 		questionDoneAction.setOverviewPanel(questionOverviewPanel);
 		
-		List<AbstractTestAction> actions = new ArrayList<AbstractTestAction>();
-		actions.add(categoryOverviewAction);
-		actions.add(questionOverviewAction);
+		// EditActions
+		List<AbstractTestAction> editActions = new ArrayList<AbstractTestAction>();
+		editActions.add(categoryOverviewAction);
+		editActions.add(questionOverviewAction);
+		
+		// FileActions
+		List<AbstractTestAction> fileActions = new ArrayList<AbstractTestAction>();
+		fileActions.add(new NewFileAction(service));
+		fileActions.add(new OpenFileAction(service));
+		fileActions.add(new SaveFileAction(service));
+		fileActions.add(new SaveAsFileAction(service));
 
-		MainView mainView = new MainView(actions);
+		MainView mainView = new MainView(editActions, fileActions);
 	
 		categoryOverviewAction.setView(mainView);
 		categoryEditAction.setView(mainView);

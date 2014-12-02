@@ -19,7 +19,6 @@ public class AdminModeAction extends AbstractTestAction{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		this.getView().setVisible(false);
-		this.getService().read();
 		this.mainView.setVisible(true);
 	}
 

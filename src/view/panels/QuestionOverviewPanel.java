@@ -16,8 +16,8 @@ import javax.swing.JTable;
 import javax.swing.table.TableModel;
 
 import view.ViewException;
-import controller.QuestionEditAction;
-import controller.QuestionNewAction;
+import controller.question.QuestionEditAction;
+import controller.question.QuestionNewAction;
 import domain.Category;
 import domain.Question;
 

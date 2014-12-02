@@ -1,6 +1,7 @@
 package view.panels;
 
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -16,7 +17,6 @@ import javax.swing.JTable;
 import javax.swing.table.TableModel;
 
 import view.ViewException;
-
 import domain.Category;
 
 
@@ -54,6 +54,7 @@ public class CategoryOverviewPanel extends JPanel {
 
 	private void initButtons(int row, Action action) {
 		JButton btnNew = new JButton(action);
+		btnNew.setPreferredSize(new Dimension(40, 40));
 		changeConstraints(1, 1, 2, row);
 		addToPanel(btnNew);
 	}
