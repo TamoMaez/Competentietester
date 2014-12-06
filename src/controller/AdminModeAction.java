@@ -2,6 +2,7 @@ package controller;
 
 import java.awt.event.ActionEvent;
 
+import application.CompetentieTesterApp;
 import view.MainView;
 import domain.facade.AdministratorFacade;
 
