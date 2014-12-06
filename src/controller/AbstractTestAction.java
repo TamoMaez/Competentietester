@@ -38,8 +38,5 @@ public abstract class AbstractTestAction extends AbstractAction {
 	
 	public void setPanelAsContentForView(JPanel panel){
 		getView().setContentPane(panel);
-		getView().getContentPane().revalidate();
-		getView().getContentPane().repaint();
-		getView().pack();
 	}
 }

@@ -29,8 +29,7 @@ public class FileManager {
 	}
 	
 	public void writeToCurrentFile(AdministratorFacade facade) {
-		//writer.write(fileChooser.getSelectedFile(), facade);
-		writer.write(new File("res/test.xlsx"), facade);
+		writer.write(fileChooser.getSelectedFile(), facade);
 	}
 
 	public void read(AdministratorFacade facade) {

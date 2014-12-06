@@ -2,7 +2,6 @@ package controller;
 
 import java.awt.event.ActionEvent;
 
-import application.CompetentieTesterApp;
 import view.MainView;
 import domain.facade.AdministratorFacade;
 
@@ -19,7 +18,6 @@ public class AdminModeAction extends AbstractTestAction{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		this.getView().setVisible(false);
-		this.getService().read();
 		this.mainView.setVisible(true);
 	}
 

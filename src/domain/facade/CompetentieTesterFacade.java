@@ -53,4 +53,8 @@ public abstract class CompetentieTesterFacade {
 	public Category getCategory(String naam) {
 		return this.categories.get(naam);
 	}
+	
+	public Question getQuestion(Question q) {
+		return questions.get(questions.indexOf(q));
+	}
 }

@@ -4,8 +4,7 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
-import controller.QuestionDoneAction;
-import domain.Option;
+import controller.question.QuestionDoneAction;
 import domain.Question;
 
 public class QuestionDetailPanel extends JPanel {
@@ -21,7 +20,8 @@ public class QuestionDetailPanel extends JPanel {
 		this.question = question;
 	}
 
-	public void setAnswers(List<Option> answers) {
+	public void setAnswers(List<Question> questions) {
+		// TODO Auto-generated method stub
 		
 	}
 
