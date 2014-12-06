@@ -1,1 +1,8 @@
+/application/
+/controller/
 /database/
+/domain/
+/test.xlsx
+/test2.xlsx
+/view/
+/vragen-uit-excel.xlsx
