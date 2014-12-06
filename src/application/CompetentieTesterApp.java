@@ -25,6 +25,7 @@ import controller.question.QuestionDoneAction;
 import controller.question.QuestionEditAction;
 import controller.question.QuestionNewAction;
 import controller.question.QuestionOverviewAction;
+import controller.settings.SettingsOverviewAction;
 import domain.facade.AdministratorFacade;
 
 public class CompetentieTesterApp {
@@ -70,10 +71,18 @@ public class CompetentieTesterApp {
 		questionDoneAction.setDetailPanel(questionDetailPanel);
 		questionDoneAction.setOverviewPanel(questionOverviewPanel);
 		
+		// Settingsactions
+		SettingsOverviewAction settingsOverviewAction = new SettingsOverviewAction(service);
+		
+		
 		// EditActions
 		List<AbstractTestAction> editActions = new ArrayList<AbstractTestAction>();
 		editActions.add(categoryOverviewAction);
 		editActions.add(questionOverviewAction);
+		
+		//SettingsActions
+		List<AbstractTestAction> settingsActions = new ArrayList<AbstractTestAction>();
+		settingsActions.add(settingsOverviewAction);
 		
 		// FileActions
 		List<AbstractTestAction> fileActions = new ArrayList<AbstractTestAction>();
@@ -82,7 +91,7 @@ public class CompetentieTesterApp {
 		fileActions.add(new SaveFileAction(service));
 		fileActions.add(new SaveAsFileAction(service));
 
-		MainView mainView = new MainView(editActions, fileActions);
+		MainView mainView = new MainView(editActions, fileActions, settingsActions);
 	
 		categoryOverviewAction.setView(mainView);
 		categoryEditAction.setView(mainView);
@@ -101,6 +110,7 @@ public class CompetentieTesterApp {
 		WelcomeView mode = new WelcomeView(userAction, adminAction);
 		userAction.setView(mode);
 		adminAction.setView(mode);
+		
 		mode.setVisible(true);
 		
 	}
