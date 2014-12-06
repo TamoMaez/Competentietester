@@ -34,8 +34,5 @@ public abstract class AbstractTestMouseAdapter extends MouseAdapter {
 	
 	public void setPanelAsContentForView(JPanel panel){
 		getView().setContentPane(panel);
-		getView().getContentPane().revalidate();
-		getView().getContentPane().repaint();
-		getView().pack();
 	}
 }
