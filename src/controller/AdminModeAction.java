@@ -2,14 +2,13 @@ package controller;
 
 import java.awt.event.ActionEvent;
 
-import application.CompetentieTesterApp;
-import view.MainView;
-import domain.facade.AdministratorFacade;
+import view.AdminMainView;
+import domain.facade.CompetentieTesterFacade;
 
 public class AdminModeAction extends AbstractTestAction{
-	private MainView mainView;
+	private AdminMainView mainView;
 
-	public AdminModeAction(AdministratorFacade service) {
+	public AdminModeAction(CompetentieTesterFacade service) {
 		super(service, "ADMINMODE");
 		// TODO Auto-generated constructor stub
 	}
@@ -22,7 +21,7 @@ public class AdminModeAction extends AbstractTestAction{
 		this.mainView.setVisible(true);
 	}
 
-	public void setOverviewPanel(MainView mainView) {
+	public void setOverviewPanel(AdminMainView mainView) {
 		this.mainView = mainView;
 	}
 }

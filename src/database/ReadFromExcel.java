@@ -14,20 +14,20 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import domain.Option;
 import domain.Question;
 import domain.QuestionAnswerType;
-import domain.facade.AdministratorFacade;
+import domain.facade.CompetentieTesterFacade;
 
 public class ReadFromExcel implements FileReader{
 	private int skipRows = 2;
-	private AdministratorFacade facade;
+	private CompetentieTesterFacade facade;
 	private Iterator<Row> rowIterator;
 	private Iterator<Cell> cellIterator;
 	
-	public void read(String fileLocation, AdministratorFacade facade) {
+	public void read(String fileLocation, CompetentieTesterFacade facade) {
 		read(new File(fileLocation), facade);
 	}
 	
 	@Override
-	public void read(File rfile, AdministratorFacade facade) {
+	public void read(File rfile, CompetentieTesterFacade facade) {
 		this.facade = facade;
 		try {
 			FileInputStream file = new FileInputStream(rfile);

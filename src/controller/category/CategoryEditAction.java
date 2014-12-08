@@ -9,12 +9,12 @@ import controller.AbstractTestMouseAdapter;
 import view.panels.CategoryDetailPanel;
 import view.panels.CategoryTableModel;
 import domain.Category;
-import domain.facade.AdministratorFacade;
+import domain.facade.CompetentieTesterFacade;
 
 public class CategoryEditAction extends AbstractTestMouseAdapter {
 	private CategoryDetailPanel detailPanel;
 	
-	public CategoryEditAction(AdministratorFacade service){
+	public CategoryEditAction(CompetentieTesterFacade service){
 		super(service);
 	}
 	

@@ -2,13 +2,13 @@ package controller;
 
 import java.awt.event.ActionEvent;
 
-import domain.facade.AdministratorFacade;
+import domain.facade.CompetentieTesterFacade;
 
 public class SaveFileAction extends AbstractTestAction {
 
 	private static final long serialVersionUID = 1L;
 
-	public SaveFileAction(AdministratorFacade service) {
+	public SaveFileAction(CompetentieTesterFacade service) {
 		super(service, "Save");
 	}
 

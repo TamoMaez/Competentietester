@@ -7,13 +7,13 @@ import controller.AbstractTestAction;
 import view.ViewException;
 import view.panels.CategoryOverviewPanel;
 import domain.Category;
-import domain.facade.AdministratorFacade;
+import domain.facade.CompetentieTesterFacade;
 
 public class CategoryOverviewAction extends AbstractTestAction {
 	private static final long serialVersionUID = 1L;
 	private CategoryOverviewPanel overviewPanel;
 
-	public CategoryOverviewAction(AdministratorFacade service){
+	public CategoryOverviewAction(CompetentieTesterFacade service){
 		super(service, "Categories");
 	}
 

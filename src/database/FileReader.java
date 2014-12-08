@@ -2,8 +2,8 @@ package database;
 
 import java.io.File;
 
-import domain.facade.AdministratorFacade;
+import domain.facade.CompetentieTesterFacade;
 
 public interface FileReader {
-	void read(File file, AdministratorFacade facade);
+	void read(File file, CompetentieTesterFacade facade);
 }

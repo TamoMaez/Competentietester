@@ -1,41 +1,28 @@
 package controller;
 
 import java.awt.event.ActionEvent;
-import java.util.List;
 
-import view.ViewException;
-import view.panels.CategoryOverviewPanel;
-import domain.Category;
-import domain.facade.AdministratorFacade;
 
-public class UserModeAction extends AbstractTestAction {
-	private static final long serialVersionUID = -1944003041085390843L;
-	private CategoryOverviewPanel overviewPanel;
-	
-	public UserModeAction(AdministratorFacade service) {
+import view.UserMainView;
+import domain.facade.CompetentieTesterFacade;
+
+public class UserModeAction extends AbstractTestAction{
+	private UserMainView mainView;
+
+	public UserModeAction(CompetentieTesterFacade service) {
 		super(service, "USERMODE");
+		// TODO Auto-generated constructor stub
 	}
+
+	private static final long serialVersionUID = 1L;
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// Listener to get all categories from service...
-		List<Category> categories = getService().getCategories();
-		getOverviewPanel().setCategories(categories);
-		try {
-			getOverviewPanel().update();
-		} catch (ViewException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		setPanelAsContentForView(getOverviewPanel());
+		this.getView().setVisible(false);
+		this.mainView.setVisible(true);
 	}
 
-	private CategoryOverviewPanel getOverviewPanel() {
-		return overviewPanel;
+	public void setOverviewPanel(UserMainView mainView) {
+		this.mainView = mainView;
 	}
-
-	public void setOverviewPanel(CategoryOverviewPanel overviewPanel) {
-		this.overviewPanel = overviewPanel;
-	}
-
 }

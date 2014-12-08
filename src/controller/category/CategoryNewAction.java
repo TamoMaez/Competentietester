@@ -6,13 +6,13 @@ import java.util.List;
 import controller.AbstractTestAction;
 import view.panels.CategoryDetailPanel;
 import domain.Category;
-import domain.facade.AdministratorFacade;
+import domain.facade.CompetentieTesterFacade;
 
 public class CategoryNewAction extends AbstractTestAction {
 	private static final long serialVersionUID = 1L;
 	private CategoryDetailPanel detailPanel;
 
-	public CategoryNewAction(AdministratorFacade service){
+	public CategoryNewAction(CompetentieTesterFacade service){
 		super(service, "New");
 	}
 

@@ -10,18 +10,18 @@ import view.ViewException;
 import view.panels.CategoryDetailPanel;
 import view.panels.WelcomePanel;
 import domain.Category;
-import domain.facade.AdministratorFacade;
+import domain.facade.CompetentieTesterFacade;
 
 public class UserTypeDoneAction extends AbstractTestAction {
 	private static final long serialVersionUID = 1L;
 	private CategoryDetailPanel detailPanel;
 	private WelcomePanel welcomePanel;
 
-	public UserTypeDoneAction(AdministratorFacade service){
+	public UserTypeDoneAction(CompetentieTesterFacade service){
 		super(service);
 	}
 
-	public UserTypeDoneAction(AdministratorFacade service, String caption){
+	public UserTypeDoneAction(CompetentieTesterFacade service, String caption){
 		super(service, caption);
 	}
 

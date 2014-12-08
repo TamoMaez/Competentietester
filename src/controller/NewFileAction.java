@@ -2,13 +2,15 @@ package controller;
 
 import java.awt.event.ActionEvent;
 
-import domain.facade.AdministratorFacade;
+import controller.question.QuestionOverviewAction;
+import view.panels.QuestionOverviewPanel;
+import domain.facade.CompetentieTesterFacade;
 
 public class NewFileAction extends AbstractTestAction {
 
 	private static final long serialVersionUID = 1L;
 
-	public NewFileAction(AdministratorFacade service) {
+	public NewFileAction(CompetentieTesterFacade service) {
 		super(service, "New");
 		// TODO Auto-generated constructor stub
 	}
@@ -16,6 +18,10 @@ public class NewFileAction extends AbstractTestAction {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
+		
+	}
+
+	public void setGoTo(QuestionOverviewPanel questionOverviewPanel) {
 		
 	}
 
