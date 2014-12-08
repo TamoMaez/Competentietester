@@ -8,18 +8,18 @@ import view.ViewException;
 import view.panels.CategoryDetailPanel;
 import view.panels.CategoryOverviewPanel;
 import domain.Category;
-import domain.facade.AdministratorFacade;
+import domain.facade.CompetentieTesterFacade;
 
 public class CategoryDoneAction extends AbstractTestAction {
 	private static final long serialVersionUID = 1L;
 	private CategoryDetailPanel detailPanel;
 	private CategoryOverviewPanel overviewPanel;
 
-	public CategoryDoneAction(AdministratorFacade service){
+	public CategoryDoneAction(CompetentieTesterFacade service){
 		super(service);
 	}
 
-	public CategoryDoneAction(AdministratorFacade service, String caption){
+	public CategoryDoneAction(CompetentieTesterFacade service, String caption){
 		super(service, caption);
 	}
 

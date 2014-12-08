@@ -5,7 +5,7 @@ import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import domain.facade.AdministratorFacade;
+import domain.facade.CompetentieTesterFacade;
 
 import org.apache.commons.io.FilenameUtils;
 
@@ -21,18 +21,18 @@ public class FileManager {
 		fileChooser.setFileFilter(new FileNameExtensionFilter("Excel (.xlsx)","xlsx"));
 	}
 	
-	public void write(AdministratorFacade facade) {
+	public void write(CompetentieTesterFacade facade) {
 		File file = setSaveFile();
 		if(file != null){
 			writer.write(file, facade);
 		}
 	}
 	
-	public void writeToCurrentFile(AdministratorFacade facade) {
+	public void writeToCurrentFile(CompetentieTesterFacade facade) {
 		writer.write(fileChooser.getSelectedFile(), facade);
 	}
 
-	public void read(AdministratorFacade facade) {
+	public void read(CompetentieTesterFacade facade) {
 		File file = chooseFile();
 		if(file != null && setReader(file)){
 			reader.read(file, facade);

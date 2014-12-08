@@ -4,27 +4,27 @@ import javax.swing.AbstractAction;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import domain.facade.AdministratorFacade;
+import domain.facade.CompetentieTesterFacade;
 
 public abstract class AbstractTestAction extends AbstractAction {
 	private static final long serialVersionUID = 1L;
-	private AdministratorFacade service;
+	private CompetentieTesterFacade service;
 	private JFrame view;
 	
-	public AbstractTestAction(AdministratorFacade service){
+	public AbstractTestAction(CompetentieTesterFacade service){
 		setService(service);
 	}
 	
-	public AbstractTestAction(AdministratorFacade service, String caption){
+	public AbstractTestAction(CompetentieTesterFacade service, String caption){
 		super(caption);
 		setService(service);
 	}
 
-	protected AdministratorFacade getService() {
+	protected CompetentieTesterFacade getService() {
 		return service;
 	}
 
-	private void setService(AdministratorFacade service) {
+	private void setService(CompetentieTesterFacade service) {
 		this.service = service;
 	}
 

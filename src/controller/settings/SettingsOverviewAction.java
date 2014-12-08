@@ -9,14 +9,14 @@ import view.panels.CategoryOverviewPanel;
 import view.panels.QuestionOverviewPanel;
 import domain.Category;
 import domain.Question;
-import domain.facade.AdministratorFacade;
+import domain.facade.CompetentieTesterFacade;
 
 public class SettingsOverviewAction extends AbstractTestAction {
 
 	private static final long serialVersionUID = 1L;
 	private QuestionOverviewPanel overviewPanel;
 
-	public SettingsOverviewAction(AdministratorFacade service) {
+	public SettingsOverviewAction(CompetentieTesterFacade service) {
 		super(service, "Edit settings");
 	}
 

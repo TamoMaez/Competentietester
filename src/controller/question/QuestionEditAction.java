@@ -2,11 +2,11 @@ package controller.question;
 
 import controller.AbstractTestMouseAdapter;
 import view.panels.QuestionDetailPanel;
-import domain.facade.AdministratorFacade;
+import domain.facade.CompetentieTesterFacade;
 
 public class QuestionEditAction extends AbstractTestMouseAdapter {
 
-	public QuestionEditAction(AdministratorFacade service) {
+	public QuestionEditAction(CompetentieTesterFacade service) {
 		super(service);
 	}
 

@@ -5,22 +5,22 @@ import java.awt.event.MouseAdapter;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import domain.facade.AdministratorFacade;
+import domain.facade.CompetentieTesterFacade;
 
 public abstract class AbstractTestMouseAdapter extends MouseAdapter {
-	private AdministratorFacade service;
+	private CompetentieTesterFacade service;
 	private JFrame view;
 	
-	public AbstractTestMouseAdapter(AdministratorFacade service){
+	public AbstractTestMouseAdapter(CompetentieTesterFacade service){
 		super();
 		setService(service);
 	}
 
-	protected AdministratorFacade getService() {
+	protected CompetentieTesterFacade getService() {
 		return service;
 	}
 
-	private void setService(AdministratorFacade service) {
+	private void setService(CompetentieTesterFacade service) {
 		this.service = service;
 	}
 

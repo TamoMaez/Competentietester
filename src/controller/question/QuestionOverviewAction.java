@@ -9,14 +9,14 @@ import view.panels.CategoryOverviewPanel;
 import view.panels.QuestionOverviewPanel;
 import domain.Category;
 import domain.Question;
-import domain.facade.AdministratorFacade;
+import domain.facade.CompetentieTesterFacade;
 
 public class QuestionOverviewAction extends AbstractTestAction {
 
 	private static final long serialVersionUID = 1L;
 	private QuestionOverviewPanel overviewPanel;
 
-	public QuestionOverviewAction(AdministratorFacade service) {
+	public QuestionOverviewAction(CompetentieTesterFacade service) {
 		super(service, "Questions");
 	}
 

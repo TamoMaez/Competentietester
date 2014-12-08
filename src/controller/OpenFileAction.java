@@ -2,11 +2,16 @@ package controller;
 
 import java.awt.event.ActionEvent;
 
-import domain.facade.AdministratorFacade;
+import javax.swing.JPanel;
+
+import view.panels.QuestionOverviewPanel;
+import domain.facade.CompetentieTesterFacade;
 
 public class OpenFileAction extends AbstractTestAction {
 
-	public OpenFileAction(AdministratorFacade service) {
+	private JPanel goToPanel;
+
+	public OpenFileAction(CompetentieTesterFacade service) {
 		super(service, "Open");
 	}
 
@@ -15,6 +20,11 @@ public class OpenFileAction extends AbstractTestAction {
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		this.getService().read();
+		setPanelAsContentForView(goToPanel);
+	}
+
+	public void setGoTo(JPanel overviewPanel) {
+		this.goToPanel = overviewPanel;
 	}
 
 

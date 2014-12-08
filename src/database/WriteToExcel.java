@@ -11,12 +11,12 @@ import domain.Category;
 import domain.Option;
 import domain.Question;
 import domain.YesNoQuestion;
-import domain.facade.AdministratorFacade;
+import domain.facade.CompetentieTesterFacade;
 
 public class WriteToExcel implements FileWriter{
 	private int skipRows = 2;
 	
-	public void write(File targetFile, AdministratorFacade facade){
+	public void write(File targetFile, CompetentieTesterFacade facade){
 		//Blank workbook
         XSSFWorkbook workbook = new XSSFWorkbook();
          

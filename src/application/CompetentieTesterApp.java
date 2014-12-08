@@ -1,9 +1,16 @@
 package application;
 
+import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
 
-import view.MainView;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+
+import view.AdminMainView;
+import view.UserMainView;
 import view.ViewException;
 import view.WelcomeView;
 import view.panels.CategoryDetailPanel;
@@ -26,17 +33,20 @@ import controller.question.QuestionEditAction;
 import controller.question.QuestionNewAction;
 import controller.question.QuestionOverviewAction;
 import controller.settings.SettingsOverviewAction;
-import domain.facade.AdministratorFacade;
+import domain.facade.CompetentieTesterFacade;
 
 public class CompetentieTesterApp {
 	public static void main(String[] args) throws ViewException{
-		AdministratorFacade service = new AdministratorFacade();
+		CompetentieTesterFacade service = new CompetentieTesterFacade();
 
 		// Modeactions
 		AdminModeAction adminAction = new AdminModeAction(service);
 		UserModeAction userAction = new UserModeAction(service);
 		
 		
+		/**
+		 * ADMIN
+		 */
 		// Categoryactions
 		CategoryOverviewAction categoryOverviewAction = new CategoryOverviewAction(service);
 		CategoryEditAction categoryEditAction = new CategoryEditAction(service);
@@ -86,26 +96,62 @@ public class CompetentieTesterApp {
 		
 		// FileActions
 		List<AbstractTestAction> fileActions = new ArrayList<AbstractTestAction>();
+		NewFileAction newFileAction = new NewFileAction(service);
+		OpenFileAction openFileAction = new OpenFileAction(service);
+		newFileAction.setGoTo(questionOverviewPanel);
+		openFileAction.setGoTo(questionOverviewPanel);
+		
 		fileActions.add(new NewFileAction(service));
 		fileActions.add(new OpenFileAction(service));
 		fileActions.add(new SaveFileAction(service));
 		fileActions.add(new SaveAsFileAction(service));
+		
+		// buttonpaneel
+		JPanel buttonHolder = new JPanel();
+			// 2 possibilities
+		JButton openBtn = new JButton(openFileAction);
+		JButton newBtn = new JButton(new NewFileAction(service));	
+		openBtn.setPreferredSize(new Dimension(100,40));
+		newBtn.setPreferredSize(new Dimension(100,40));
+		buttonHolder.add(openBtn);
+		buttonHolder.add(newBtn);
+			// Welcome Panel
+		JPanel selectButtonsPanel = new JPanel();
+		selectButtonsPanel.setLayout(new BoxLayout(selectButtonsPanel, BoxLayout.PAGE_AXIS));
+		selectButtonsPanel.add(Box.createVerticalGlue());
+		selectButtonsPanel.add(buttonHolder);
+		selectButtonsPanel.add(Box.createVerticalGlue());
+		
+		AdminMainView adminMainView = new AdminMainView(editActions, fileActions, settingsActions, selectButtonsPanel);
 
-		MainView mainView = new MainView(editActions, fileActions, settingsActions);
-	
-		categoryOverviewAction.setView(mainView);
-		categoryEditAction.setView(mainView);
-		categoryNewAction.setView(mainView);
-		categoryDoneAction.setView(mainView);
-		categoryDoneAction.setView(mainView);
+		newFileAction.setView(adminMainView);
+		openFileAction.setView(adminMainView);
 		
-		questionOverviewAction.setView(mainView);
-		questionEditAction.setView(mainView);
-		questionNewAction.setView(mainView);
-		questionDoneAction.setView(mainView);
-		questionDoneAction.setView(mainView);
 		
-		adminAction.setOverviewPanel(mainView);
+		categoryOverviewAction.setView(adminMainView);
+		categoryEditAction.setView(adminMainView);
+		categoryNewAction.setView(adminMainView);
+		categoryDoneAction.setView(adminMainView);
+		categoryDoneAction.setView(adminMainView);
+		
+		questionOverviewAction.setView(adminMainView);
+		questionEditAction.setView(adminMainView);
+		questionNewAction.setView(adminMainView);
+		questionDoneAction.setView(adminMainView);
+		questionDoneAction.setView(adminMainView);
+		
+		adminAction.setOverviewPanel(adminMainView);
+		
+		
+		
+		/**
+		 * USER
+		 */
+		UserMainView userMainView = new UserMainView();
+		userAction.setOverviewPanel(userMainView);
+		
+		
+		
 		
 		WelcomeView mode = new WelcomeView(userAction, adminAction);
 		userAction.setView(mode);

@@ -11,6 +11,7 @@ import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -20,26 +21,25 @@ import javax.swing.JPopupMenu;
 
 import view.panels.SidebarPanel;
 import controller.AbstractTestAction;
-import domain.facade.AdministratorFacade;
+import domain.facade.CompetentieTesterFacade;
 import domain.facade.CompetentieTesterFacade;
 
 
-public class MainView extends JFrame {
+public class UserMainView extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JMenuBar menuBar;
-	private AdministratorFacade facade;
-	private SidebarPanel sidebarPanel;
+	private CompetentieTesterFacade facade;
+
 	private Container shownPanel = new JPanel();
 	
-	public MainView(List<AbstractTestAction> editActions, List<AbstractTestAction> fileActions, List<AbstractTestAction> settingsActions){
-		this.sidebarPanel = new SidebarPanel(editActions);		
+	public UserMainView(){
 		
-		this.add(sidebarPanel, BorderLayout.WEST);
+		
 		
 		this.setContentPane(new JPanel());
 
 		
-		createMenuBar(editActions, fileActions, settingsActions);
+		createMenuBar();
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -49,25 +49,13 @@ public class MainView extends JFrame {
 	/*
 	 * TOP BAR
 	 */
-	private void createMenuBar(List<AbstractTestAction> editActions, List<AbstractTestAction> fileActions, List<AbstractTestAction> settingsActions) {
+	private void createMenuBar() {
 		menuBar = new JMenuBar();
 		JMenu fileMenu = new JMenu("File");
-		for(AbstractTestAction action : fileActions){
-			fileMenu.add(new JMenuItem(action));
-		}
-		
-		JMenu editMenu = new JMenu("Edit");
-		for(AbstractTestAction action : editActions){
-			editMenu.add(new JMenuItem(action));
-		}
-		JMenu settingsMenu = new JMenu("Settings");
-		for(AbstractTestAction action : settingsActions){
-			settingsMenu.add(new JMenuItem(action));
-		}
+		fileMenu.add(new JMenuItem("Quit"));
 		
 		menuBar.add(fileMenu);
-		menuBar.add(editMenu);
-		menuBar.add(settingsMenu);
+		
 		setJMenuBar(menuBar);
 	}
 
@@ -88,7 +76,7 @@ public class MainView extends JFrame {
 
 	}
 
-	public void setService(AdministratorFacade facade) {
+	public void setService(CompetentieTesterFacade facade) {
 		this.facade = facade;
 		facade.read();
 	}

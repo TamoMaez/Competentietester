@@ -5,13 +5,13 @@ import java.awt.event.ActionEvent;
 import controller.AbstractTestAction;
 import view.panels.QuestionDetailPanel;
 import view.panels.QuestionOverviewPanel;
-import domain.facade.AdministratorFacade;
+import domain.facade.CompetentieTesterFacade;
 
 public class QuestionDoneAction extends AbstractTestAction {
 
 	private static final long serialVersionUID = 1L;
 
-	public QuestionDoneAction(AdministratorFacade service) {
+	public QuestionDoneAction(CompetentieTesterFacade service) {
 		super(service);
 	}
 
