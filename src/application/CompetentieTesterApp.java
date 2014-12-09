@@ -1,12 +1,15 @@
 package application;
 
 import java.awt.Dimension;
+import java.awt.Font;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import view.AdminMainView;
@@ -15,15 +18,21 @@ import view.ViewException;
 import view.WelcomeView;
 import view.panels.categories.CategoryDetailPanel;
 import view.panels.categories.CategoryOverviewPanel;
+import view.panels.EvaluationTestPanel;
 import view.panels.questions.ChooseCategoryPanel;
 import view.panels.questions.QuestionDetailPanel;
 import view.panels.questions.QuestionOverviewPanel;
+import view.panels.TestPanel;
 import controller.AbstractTestAction;
 import controller.AdminModeAction;
+import controller.HistoryOverviewAction;
 import controller.NewFileAction;
+import controller.NextQuestionAction;
 import controller.OpenFileAction;
 import controller.SaveAsFileAction;
 import controller.SaveFileAction;
+import controller.StartTestAction;
+import controller.TestDoneAction;
 import controller.UserModeAction;
 import controller.category.CategoryDoneAction;
 import controller.category.CategoryEditAction;
@@ -79,7 +88,7 @@ public class CompetentieTesterApp {
 		QuestionOverviewPanel questionOverviewPanel = new QuestionOverviewPanel(questionEditAction, questionNewAction);
 		QuestionDetailPanel questionDetailPanel = new QuestionDetailPanel(addCategoryAction);
 		
-		// attach panels to actions
+		// attach panels to buttons
 		questionOverviewAction.setOverviewPanel(questionOverviewPanel);
 		questionEditAction.setDetailPanel(questionDetailPanel);
 		questionNewAction.setDetailPanel(questionDetailPanel);
@@ -153,15 +162,62 @@ public class CompetentieTesterApp {
 		
 		addCategoryAction.setView(adminMainView);
 		
-		
 		/**
 		 * USER
 		 */
-		UserMainView userMainView = new UserMainView();
+		
+		// Test actions
+		StartTestAction startTestAction = new StartTestAction(service);
+		NextQuestionAction nextQuestionAction = new NextQuestionAction(service);
+		TestDoneAction testDoneAction = new TestDoneAction(service);
+		
+		// History actions
+		HistoryOverviewAction historyOverviewAction = new HistoryOverviewAction(service);
+		
+		// Panels
+		TestPanel testPanel = new TestPanel(nextQuestionAction, testDoneAction, service);
+		EvaluationTestPanel evaluationTestPanel = new EvaluationTestPanel(service);
+		
+		// Attach buttons to panels
+		startTestAction.setTestPanel(testPanel);
+		nextQuestionAction.setTestPanel(testPanel);
+		testDoneAction.setEvaluationTestPanel(evaluationTestPanel);
+		
+		
+		
+		List<AbstractTestAction> testOptions = new ArrayList<>();
+		testOptions.add(startTestAction);
+		testOptions.add(historyOverviewAction);
+		
+		JPanel buttonHolder2 = new JPanel();
+		// 2 possibilities
+		JButton startButton = new JButton(startTestAction);
+		JButton historyButton = new JButton(historyOverviewAction);	
+		startButton.setPreferredSize(new Dimension(200,60));
+		historyButton.setPreferredSize(new Dimension(200,60));
+		buttonHolder2.add(startButton);
+		buttonHolder2.add(historyButton);
+		
+		// Welcome text
+		JLabel welcomeText = new JLabel("Welcome to the test!", JLabel.CENTER);
+		welcomeText.setFont(new Font("Arial", Font.PLAIN, 50));
+		welcomeText.setBorder(BorderFactory.createEmptyBorder(10, 300, 10, 10));
+		
+		// Welcome Panel
+		JPanel selectButtonsPanel2 = new JPanel();
+		selectButtonsPanel2.setLayout(new BoxLayout(selectButtonsPanel2, BoxLayout.PAGE_AXIS));
+		selectButtonsPanel2.add(Box.createVerticalGlue());
+		selectButtonsPanel2.add(welcomeText);
+		selectButtonsPanel2.add(buttonHolder2);
+		selectButtonsPanel2.add(Box.createVerticalGlue());
+		
+		
+		UserMainView userMainView = new UserMainView(selectButtonsPanel2, testOptions);
 		userAction.setOverviewPanel(userMainView);
 		
-		
-		
+		startTestAction.setView(userMainView);
+		nextQuestionAction.setView(userMainView);
+		testDoneAction.setView(userMainView);
 		
 		WelcomeView mode = new WelcomeView(userAction, adminAction);
 		userAction.setView(mode);

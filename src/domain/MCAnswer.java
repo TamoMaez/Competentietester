@@ -39,7 +39,7 @@ public class MCAnswer extends Answer {
 	}
 	
 
-	public int getScore(Category category){
+	public int getScoreByCategory(Category category) {
 		int score = 0;
 		for(Option o : options){
 			if(o.getScoreByCategory(category) != null) {
@@ -47,6 +47,10 @@ public class MCAnswer extends Answer {
 			}
 		}
 		return score;
+	}
+	
+	public int getScore() {
+		return this.getScoreByCategory(this.question.getCategories().get(0));
 	}
 	
 
@@ -58,6 +62,10 @@ public class MCAnswer extends Answer {
 			}
 		}
 		return score;
+	}
+	
+	public int getMaximumScore() {
+		return this.getMaximumScore(this.question.getCategories().get(0));
 	}
 
 }

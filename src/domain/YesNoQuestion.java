@@ -51,6 +51,12 @@ public class YesNoQuestion extends Question {
 		}
 
 	}
+
+	@Override
+	public QuestionAnswerType getType() {
+		// TODO Auto-generated method stub
+		return QuestionAnswerType.YesNo;
+	}
 	
 
 }

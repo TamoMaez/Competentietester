@@ -51,6 +51,12 @@ public class MCQuestion extends Question {
 		}
 
 	}
-	
 
+	@Override
+	public QuestionAnswerType getType() {
+		// TODO Auto-generated method stub
+		return QuestionAnswerType.MC;
+	}
+	
+	
 }

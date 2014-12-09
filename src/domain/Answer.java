@@ -14,11 +14,15 @@ public abstract class Answer {
 	
 	public abstract boolean isForCategory(Category category);
 	
-	public abstract int getScore(Category category);
-	
+	public abstract int getScoreByCategory(Category category);
+
+	public abstract int getScore();
+
 	public abstract int getMaximumScore(Category category);
+
+	public abstract int getMaximumScore();
 	
-	protected Question getQuestion() {
+	public Question getQuestion() {
 		return question;
 	}
 

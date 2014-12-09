@@ -32,8 +32,12 @@ public class YesNoAnswer extends Answer {
 	}
 
 	@Override
-	public int getScore(Category category) {
+	public int getScoreByCategory(Category category) {
 		return this.option.getScoreByCategory(category).getPoints();
+	}
+	
+	public int getScore() {
+		return this.getScoreByCategory(this.question.getCategories().get(0));
 	}
 
 	@Override
@@ -41,4 +45,7 @@ public class YesNoAnswer extends Answer {
 		return this.option.getScoreByCategory(category).getMaxPoints();
 	}
 
+	public int getMaximumScore() {
+		return this.getMaximumScore(this.question.getCategories().get(0));
+	}
 }

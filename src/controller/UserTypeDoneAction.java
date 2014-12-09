@@ -7,8 +7,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import view.ViewException;
-import view.panels.WelcomePanel;
 import view.panels.categories.CategoryDetailPanel;
+import view.panels.WelcomePanel;
 import domain.Category;
 import domain.facade.CompetentieTesterFacade;
 
