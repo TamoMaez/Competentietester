@@ -13,4 +13,8 @@ public class SumScoreCalculator implements ScoreCalculator {
 		return 0;
 	}
 
+	public String toString() {
+		return "Sum calculator";
+	}
+	
 }

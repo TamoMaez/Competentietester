@@ -11,11 +11,13 @@ import javax.swing.Action;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
 
 import domain.Category;
+import domain.Question;
 
 public class ChooseCategoryPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
@@ -24,7 +26,8 @@ public class ChooseCategoryPanel extends JPanel {
 	private List<Category> categories;
 	private JComboBox<Category> categoryField;
 	private JButton btnAdd, btnCancel;
-	private JFormattedTextField pointField;
+	private JSpinner numberChooser;
+	private Question question;
 	
 	public ChooseCategoryPanel(Action action) {
 		setCategories(categories);
@@ -44,8 +47,16 @@ public class ChooseCategoryPanel extends JPanel {
 		addToPanel(new JLabel("Max Points: "));
 		
 		changeConstraints(1, 1, 1, rij);
-		pointField = new JFormattedTextField();
-		addToPanel(pointField);
+		
+		SpinnerNumberModel numberModel = new SpinnerNumberModel(
+                new Integer(0), // value
+                new Integer(0), // min
+                new Integer(10), // max
+                new Integer(1) // step
+                );
+        numberChooser = new JSpinner(numberModel);
+        ((JSpinner.DefaultEditor) numberChooser.getEditor()).getTextField().setEditable(false);
+        addToPanel(numberChooser);
 	}
 
 	private void initButtons(int rij, Action action) {
@@ -92,9 +103,6 @@ public class ChooseCategoryPanel extends JPanel {
 		constraints.gridy = gridy;
 	}
 	
-	public Category getCreatedCategory(){	
-		return (Category)(categoryField.getSelectedItem());
-	}
 	
 	protected void addToPanel(Component component) {
 		add(component, getConstraints());
@@ -110,10 +118,27 @@ public class ChooseCategoryPanel extends JPanel {
 	}
 	
 	private void update() {	
-		if (getCategories() != null) {
+		if (getCategories() != null && getCategories().size() >= 0) {
 			Vector<Category> cats = new Vector<Category>(getCategories());
 			DefaultComboBoxModel<Category> categoriesModel = new DefaultComboBoxModel<Category>(cats);
 			categoryField.setModel(categoriesModel);
 		}
+	}
+	
+	public Question getQuestion(){
+		return question;
+	}
+
+	public void setQuestion(Question question) {
+		this.question = question;
+	}
+
+	public int getMaxPoint() {
+		System.out.println(numberChooser.getValue());
+		return (int) numberChooser.getValue();
+	}
+	
+	public Category getCategory(){		
+		return (Category)(categoryField.getSelectedItem());
 	}
 }

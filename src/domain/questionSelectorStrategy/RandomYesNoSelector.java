@@ -28,4 +28,8 @@ public class RandomYesNoSelector implements QuestionSelector {
 		}
 		return yesNoQuestions.subList(0, numberOfQuestions);
 	}
+	
+	public String toString() {
+		return "Random yes/no";
+	}
 }

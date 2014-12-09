@@ -19,6 +19,7 @@ public class MCQuestion extends Question {
 		}
 		this.options = options;
 	}
+
 	
 	public void addOption(Option option) {
 		if (this.options.size() >= 5) {

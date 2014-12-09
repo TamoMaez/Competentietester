@@ -19,4 +19,8 @@ public class LeastAskedSelector implements QuestionSelector {
 
 	}
 
+	public String toString() {
+		return "Least asked";
+	}
+	
 }

@@ -1,16 +1,7 @@
 package application;
 
-import java.awt.Dimension;
-import java.awt.Font;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.BorderFactory;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 import view.AdminMainView;
 import view.UserMainView;
@@ -18,14 +9,21 @@ import view.ViewException;
 import view.WelcomeView;
 import view.panels.categories.CategoryDetailPanel;
 import view.panels.categories.CategoryOverviewPanel;
+import view.panels.evaluations.HistoryOverviewPanel;
+import view.panels.AdminWelcomePanel;
 import view.panels.EvaluationTestPanel;
+import view.panels.SettingsOverviewPanel;
+import view.panels.UserWelcomePanel;
 import view.panels.questions.ChooseCategoryPanel;
 import view.panels.questions.QuestionDetailPanel;
 import view.panels.questions.QuestionOverviewPanel;
 import view.panels.TestPanel;
 import controller.AbstractTestAction;
 import controller.AdminModeAction;
+import controller.BackToUserHomeAction;
+import controller.HistoryDetailAction;
 import controller.HistoryOverviewAction;
+import controller.LogoutAction;
 import controller.NewFileAction;
 import controller.NextQuestionAction;
 import controller.OpenFileAction;
@@ -39,6 +37,7 @@ import controller.category.CategoryEditAction;
 import controller.category.CategoryNewAction;
 import controller.category.CategoryOverviewAction;
 import controller.question.AddCategoryAction;
+import controller.question.NewQuestionCategoryAction;
 import controller.question.QuestionDoneAction;
 import controller.question.QuestionEditAction;
 import controller.question.QuestionNewAction;
@@ -53,7 +52,8 @@ public class CompetentieTesterApp {
 		// Modeactions
 		AdminModeAction adminAction = new AdminModeAction(service);
 		UserModeAction userAction = new UserModeAction(service);
-		
+		LogoutAction logoutAction = new LogoutAction(service);
+
 		
 		/**
 		 * ADMIN
@@ -95,12 +95,22 @@ public class CompetentieTesterApp {
 		questionDoneAction.setDetailPanel(questionDetailPanel);
 		questionDoneAction.setOverviewPanel(questionOverviewPanel);
 		
-		// add category
-		ChooseCategoryPanel chooseCategoryPanel = new ChooseCategoryPanel(null);
-		addCategoryAction.setDetailPanel(chooseCategoryPanel);
+		// new category for question
+		NewQuestionCategoryAction qcAction = new NewQuestionCategoryAction(service);
+		qcAction.setOverviewPanel(questionDetailPanel);
 		
-		// Settingsactions
+		// add category
+		ChooseCategoryPanel chooseCategoryPanel = new ChooseCategoryPanel(qcAction);
+		addCategoryAction.setDetailPanel(chooseCategoryPanel);
+		addCategoryAction.setOverviewPanel(questionDetailPanel);
+		qcAction.setDetailPanel(chooseCategoryPanel);
+		
+		// SettingsActions
 		SettingsOverviewAction settingsOverviewAction = new SettingsOverviewAction(service);
+		
+		//SettingsPanel
+		SettingsOverviewPanel settingsOverviewPanel = new SettingsOverviewPanel(settingsOverviewAction, service);
+		settingsOverviewAction.setOverviewPanel(settingsOverviewPanel);
 		
 		
 		// EditActions
@@ -123,28 +133,28 @@ public class CompetentieTesterApp {
 		fileActions.add(new OpenFileAction(service));
 		fileActions.add(new SaveFileAction(service));
 		fileActions.add(new SaveAsFileAction(service));
-		
-		// buttonpaneel
-		JPanel buttonHolder = new JPanel();
-			// 2 possibilities
-		JButton openBtn = new JButton(openFileAction);
-		JButton newBtn = new JButton(new NewFileAction(service));	
-		openBtn.setPreferredSize(new Dimension(100,40));
-		newBtn.setPreferredSize(new Dimension(100,40));
-		buttonHolder.add(openBtn);
-		buttonHolder.add(newBtn);
-			// Welcome Panel
-		JPanel selectButtonsPanel = new JPanel();
-		selectButtonsPanel.setLayout(new BoxLayout(selectButtonsPanel, BoxLayout.PAGE_AXIS));
-		selectButtonsPanel.add(Box.createVerticalGlue());
-		selectButtonsPanel.add(buttonHolder);
-		selectButtonsPanel.add(Box.createVerticalGlue());
-		
-		AdminMainView adminMainView = new AdminMainView(editActions, fileActions, settingsActions, selectButtonsPanel);
+		fileActions.add(logoutAction);
 
+		
+		
+		
+		// AdminWelcomePanel
+		AdminWelcomePanel adminWelcomePanel = new AdminWelcomePanel(openFileAction, newFileAction);
+
+		
+		AdminMainView adminMainView = new AdminMainView(editActions, fileActions, settingsActions, adminWelcomePanel);
+
+		adminAction.setOverviewPanel(adminMainView);
+		
 		newFileAction.setView(adminMainView);
 		openFileAction.setView(adminMainView);
 		
+		// set view for settings
+		settingsOverviewAction.setView(adminMainView);
+
+		// YOLO
+		qcAction.setView(adminMainView);
+
 		
 		categoryOverviewAction.setView(adminMainView);
 		categoryEditAction.setView(adminMainView);
@@ -170,58 +180,65 @@ public class CompetentieTesterApp {
 		StartTestAction startTestAction = new StartTestAction(service);
 		NextQuestionAction nextQuestionAction = new NextQuestionAction(service);
 		TestDoneAction testDoneAction = new TestDoneAction(service);
-		
+		BackToUserHomeAction backToUserHomeAction = new BackToUserHomeAction(service);
+
 		// History actions
 		HistoryOverviewAction historyOverviewAction = new HistoryOverviewAction(service);
+		HistoryDetailAction historyDetailAction = new HistoryDetailAction(service);
+		
+		HistoryOverviewPanel historyOverviewPanel = new HistoryOverviewPanel(backToUserHomeAction, historyDetailAction);
+
+		
 		
 		// Panels
+		UserWelcomePanel userWelcomePanel = new UserWelcomePanel(startTestAction, historyOverviewAction);
 		TestPanel testPanel = new TestPanel(nextQuestionAction, testDoneAction, service);
-		EvaluationTestPanel evaluationTestPanel = new EvaluationTestPanel(service);
+		EvaluationTestPanel evaluationTestPanel = new EvaluationTestPanel(backToUserHomeAction, service);
 		
 		// Attach buttons to panels
 		startTestAction.setTestPanel(testPanel);
 		nextQuestionAction.setTestPanel(testPanel);
+		testDoneAction.setTestPanel(testPanel);
 		testDoneAction.setEvaluationTestPanel(evaluationTestPanel);
+		backToUserHomeAction.setUserWelcomePanel(userWelcomePanel);
 		
 		
+		historyOverviewAction.setOverviewPanel(historyOverviewPanel);
+		historyDetailAction.setEvaluationTestPanel(evaluationTestPanel);
 		
+		
+		// Create UserMainView
 		List<AbstractTestAction> testOptions = new ArrayList<>();
 		testOptions.add(startTestAction);
 		testOptions.add(historyOverviewAction);
+		testOptions.add(logoutAction);
 		
-		JPanel buttonHolder2 = new JPanel();
-		// 2 possibilities
-		JButton startButton = new JButton(startTestAction);
-		JButton historyButton = new JButton(historyOverviewAction);	
-		startButton.setPreferredSize(new Dimension(200,60));
-		historyButton.setPreferredSize(new Dimension(200,60));
-		buttonHolder2.add(startButton);
-		buttonHolder2.add(historyButton);
-		
-		// Welcome text
-		JLabel welcomeText = new JLabel("Welcome to the test!", JLabel.CENTER);
-		welcomeText.setFont(new Font("Arial", Font.PLAIN, 50));
-		welcomeText.setBorder(BorderFactory.createEmptyBorder(10, 300, 10, 10));
-		
-		// Welcome Panel
-		JPanel selectButtonsPanel2 = new JPanel();
-		selectButtonsPanel2.setLayout(new BoxLayout(selectButtonsPanel2, BoxLayout.PAGE_AXIS));
-		selectButtonsPanel2.add(Box.createVerticalGlue());
-		selectButtonsPanel2.add(welcomeText);
-		selectButtonsPanel2.add(buttonHolder2);
-		selectButtonsPanel2.add(Box.createVerticalGlue());
-		
-		
-		UserMainView userMainView = new UserMainView(selectButtonsPanel2, testOptions);
+		UserMainView userMainView = new UserMainView(userWelcomePanel, testOptions);
 		userAction.setOverviewPanel(userMainView);
-		
+
+		backToUserHomeAction.setView(userMainView);
 		startTestAction.setView(userMainView);
 		nextQuestionAction.setView(userMainView);
 		testDoneAction.setView(userMainView);
 		
+		historyOverviewAction.setView(userMainView);
+		historyDetailAction.setView(userMainView);
+		
+		
+		
+		
 		WelcomeView mode = new WelcomeView(userAction, adminAction);
 		userAction.setView(mode);
 		adminAction.setView(mode);
+
+		
+		
+		// Logout
+		logoutAction.addView(userMainView);
+		logoutAction.addView(adminMainView);
+		logoutAction.setOverviewPanel(mode);
+		
+		
 		
 		mode.setVisible(true);
 		

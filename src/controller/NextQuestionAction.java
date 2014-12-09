@@ -29,31 +29,56 @@ public class NextQuestionAction extends AbstractTestAction {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// User has answered question
-		List<Option> options = new ArrayList<>();
+		boolean nextQuestion = false;
 		
-		for (Enumeration<AbstractButton> buttons = optionGroup.getElements(); buttons.hasMoreElements();) {
-            AbstractButton button = buttons.nextElement();
-
-            if (button.isSelected()) {
-                options.add(question.getOption(button.getText()));
-            }
-	    }
-		
-		this.getService().answerQuestion(options, question);
-		
-		
-		// Listener to get all categories from service...
-		Question question = getService().getNextQuestion();
-		getTestPanel().setQuestion(question);
-		
-		try {
-			getTestPanel().update();
-		} catch (ViewException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+		if (e.getActionCommand() == null) {
+			// Timer has passed 1 second
+			 testPanel.time--;
+			 testPanel.changeTimeLabel();
+	       // timerLabel.setText(elapsedSeconds)
+	        if(testPanel.time == 0){
+	        	testPanel.timer.stop();
+	        	testPanel.timer.removeActionListener(this);
+	        	nextQuestion = true;
+	        }
+		} else {
+			nextQuestion = true;
+        	testPanel.timer.removeActionListener(this);
 		}
-		setPanelAsContentForView(getTestPanel());
+		
+		if (nextQuestion == true) {
+				
+			// User has answered question
+			List<Option> options = new ArrayList<>();
+			
+			for (Enumeration<AbstractButton> buttons = optionGroup.getElements(); buttons.hasMoreElements();) {
+		        AbstractButton button = buttons.nextElement();
+		
+		        if (button.isSelected()) {
+		            options.add(question.getOption(button.getText()));
+		        }
+		    }
+			
+			if (options.isEmpty()) {
+				options.add(question.getWrongOption());
+			}
+			
+			this.getService().answerQuestion(options, question);
+			
+			
+			// Listener to get all categories from service...
+			Question question = getService().getNextQuestion();
+			getTestPanel().setQuestion(question);
+			
+			try {
+				getTestPanel().update();
+			} catch (ViewException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			setPanelAsContentForView(getTestPanel());
+			
+        }
 	}
 
 	private TestPanel getTestPanel() {

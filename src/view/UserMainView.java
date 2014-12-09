@@ -1,27 +1,17 @@
 package view;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
 import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.awt.Insets;
+
 import java.util.List;
 
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
 
-import view.panels.SidebarPanel;
+
 import controller.AbstractTestAction;
-import domain.facade.CompetentieTesterFacade;
 import domain.facade.CompetentieTesterFacade;
 
 
@@ -53,15 +43,12 @@ public class UserMainView extends JFrame {
 		for (AbstractTestAction option : options) {
 			optionsMenu.add(new JMenuItem(option));
 		}
-		
-		JMenu helpMenu = new JMenu("Help");
-		helpMenu.add(new JMenuItem("Start test"));
+
 
 		// User profile?
 		// Show categories?
 		
 		menuBar.add(optionsMenu);
-		menuBar.add(helpMenu);
 		
 		setJMenuBar(menuBar);
 	}

@@ -28,4 +28,9 @@ public class RandomMCSelector implements QuestionSelector {
 		}
 		return MCQuestions.subList(0, numberOfQuestions);
 	}
+	
+	public String toString() {
+		return "Random MC";
+	}
+	
 }

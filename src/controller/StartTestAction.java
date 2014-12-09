@@ -18,6 +18,7 @@ public class StartTestAction extends AbstractTestAction {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		this.getService().start();
 		// Listener to get all categories from service...
 		Question question = getService().getNextQuestion();
 		getTestPanel().setQuestion(question);

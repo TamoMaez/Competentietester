@@ -14,4 +14,9 @@ public class RandomSelector implements QuestionSelector {
 		Collections.shuffle(shuffleQuestions);
 		return shuffleQuestions.subList(0, numberOfQuestions);
 	}
+	
+	public String toString() {
+		return "Random";
+	}
+	
 }

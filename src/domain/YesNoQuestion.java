@@ -20,6 +20,13 @@ public class YesNoQuestion extends Question {
 		this.options = options;
 	}
 	
+	public boolean removeOption(Option o) {
+		if (options.size() <= 2) {
+			throw new DomainException("Yes and No are the only answers possible");
+		}
+		return false;
+	}
+	
 	public void addOption(Option option) {
 		if (this.options.size() >= 2) {
 			throw new DomainException("The list of options can't contain more than 2 options.");

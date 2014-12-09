@@ -16,7 +16,7 @@ public class Option {
 	public String getStatement() {
 		return statement;
 	}
-	private void setStatement(String statement) {
+	public void setStatement(String statement) {
 		this.statement = statement;
 	}
 	
@@ -32,7 +32,9 @@ public class Option {
 	}
 
 	public boolean isCorrect() {
+		if(this.scores != null && scores.size() > 0)
 		return this.scores.get(0).getPoints() == this.scores.get(0).getMaxPoints();
+		else return true;
 	}
 	
 	public Score getScoreByCategory(Category category) {

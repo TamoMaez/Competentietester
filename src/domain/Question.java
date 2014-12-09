@@ -52,11 +52,23 @@ public abstract class Question {
 		return this.categories;
 	}
 	
+	public Category removeCategory(Category category){
+		return this.categories.remove(categories.indexOf(category));
+	}
+	
 	public void addCategory(Category category) {
 		if (category == null) {
 			throw new DomainException("A category can't be NULL");
 		}
 		this.categories.add(category);
+	}
+	
+
+	public boolean removeOption(Option o) {
+		if (options.size() <= 1) {
+			throw new DomainException("At least one answer must be added");
+		}
+		return options.remove(o);
 	}
 	
 	public  List<Option>getOptions(){
@@ -127,6 +139,16 @@ public abstract class Question {
 	
 	public String toString(){
 		return getQuestion();
+	}
+	
+	
+	public Option getWrongOption() {
+		for (Option option : this.options) {
+			if (!option.isCorrect()) {
+				return option;
+			}
+		}
+		return null;
 	}
 	
 }

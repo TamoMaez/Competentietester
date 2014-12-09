@@ -12,5 +12,9 @@ public class GisScoreCalculator implements ScoreCalculator {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	
+	public String toString() {
+		return "Gis calculator";
+	}
 
 }

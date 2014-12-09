@@ -165,7 +165,7 @@ public class QuestionDetailPanel extends JPanel {
 		update();
 	}
 
-	private void update() {
+	public void update() {
 		if (getQuestion() != null) {
 			titleField.setText(getQuestion().getQuestion());
 
@@ -178,7 +178,7 @@ public class QuestionDetailPanel extends JPanel {
 		return answers;
 	}
 
-	private Question getQuestion() {
+	public Question getQuestion() {
 		return question;
 	}
 

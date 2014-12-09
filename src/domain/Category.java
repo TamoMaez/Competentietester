@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Category {
+public class Category implements Comparable {
 	private String title;
 	private String description;
 	private Category mainCategory;
@@ -69,6 +69,15 @@ public class Category {
 			return c.getTitle().equals(this.getTitle());
 		}
 		return false;
+	}
+
+	@Override
+	public int compareTo(Object o) {
+		if (o instanceof Category) {
+			Category c = (Category) o;
+			return this.title.compareTo(c.title);
+		}
+		return -1;
 	}
 	
 	

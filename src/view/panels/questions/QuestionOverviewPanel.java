@@ -1,5 +1,6 @@
 package view.panels.questions;
 
+import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -56,7 +57,9 @@ public class QuestionOverviewPanel extends JPanel {
 	private void initButtons(int row, Action action) {
 		JButton btnNew = new JButton(action);
 		changeConstraints(1, 1, 2, row);
-		addToPanel(btnNew);
+		JPanel newPanel = new JPanel();
+		newPanel.add(btnNew, BorderLayout.EAST);
+		addToPanel(newPanel);
 	}
 	
 	public void update() throws ViewException {

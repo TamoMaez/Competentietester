@@ -6,6 +6,7 @@ import javax.swing.table.AbstractTableModel;
 
 import domain.Category;
 import domain.Question;
+import domain.Score;
 
 public class QuestionTableModel extends AbstractTableModel {
 	private static final long serialVersionUID = 1L;
@@ -56,5 +57,4 @@ public class QuestionTableModel extends AbstractTableModel {
 	public String getColumnName(int column) {
 		return columnNames[column];
 	}
-
 }

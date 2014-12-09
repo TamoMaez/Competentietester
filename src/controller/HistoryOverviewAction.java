@@ -5,13 +5,13 @@ import java.util.List;
 
 import controller.AbstractTestAction;
 import view.ViewException;
-import view.panels.categories.CategoryOverviewPanel;
-import domain.Category;
+import view.panels.evaluations.HistoryOverviewPanel;
+import domain.Evaluation;
 import domain.facade.CompetentieTesterFacade;
 
 public class HistoryOverviewAction extends AbstractTestAction {
 	private static final long serialVersionUID = 1L;
-	private CategoryOverviewPanel overviewPanel;
+	private HistoryOverviewPanel overviewPanel;
 
 	public HistoryOverviewAction(CompetentieTesterFacade service){
 		super(service, "Test history");
@@ -20,22 +20,22 @@ public class HistoryOverviewAction extends AbstractTestAction {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// Listener to get all categories from service...
-		List<Category> categories = getService().getCategories();
-		getOverviewPanel().setCategories(categories);
+		List<Evaluation> evaluations = getService().getEvaluationsList();
+		getOverviewPanel().setEvaluations(evaluations);
 		try {
 			getOverviewPanel().update();
 		} catch (ViewException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		setPanelAsContentForView(getOverviewPanel());
+		setPanelAsContentForView(this.getOverviewPanel());
 	}
 
-	private CategoryOverviewPanel getOverviewPanel() {
+	private HistoryOverviewPanel getOverviewPanel() {
 		return overviewPanel;
 	}
 
-	public void setOverviewPanel(CategoryOverviewPanel overviewPanel) {
+	public void setOverviewPanel(HistoryOverviewPanel overviewPanel) {
 		this.overviewPanel = overviewPanel;
 	}
 }
