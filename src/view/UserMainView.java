@@ -32,14 +32,11 @@ public class UserMainView extends JFrame {
 
 	private Container shownPanel = new JPanel();
 	
-	public UserMainView(){
+	public UserMainView(JPanel initPanel, List<AbstractTestAction> options){
 		
+		this.setContentPane(initPanel);
 		
-		
-		this.setContentPane(new JPanel());
-
-		
-		createMenuBar();
+		createMenuBar(options);
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -49,12 +46,22 @@ public class UserMainView extends JFrame {
 	/*
 	 * TOP BAR
 	 */
-	private void createMenuBar() {
+	private void createMenuBar(List<AbstractTestAction> options) {
 		menuBar = new JMenuBar();
-		JMenu fileMenu = new JMenu("File");
-		fileMenu.add(new JMenuItem("Quit"));
+		JMenu optionsMenu = new JMenu("Options");
 		
-		menuBar.add(fileMenu);
+		for (AbstractTestAction option : options) {
+			optionsMenu.add(new JMenuItem(option));
+		}
+		
+		JMenu helpMenu = new JMenu("Help");
+		helpMenu.add(new JMenuItem("Start test"));
+
+		// User profile?
+		// Show categories?
+		
+		menuBar.add(optionsMenu);
+		menuBar.add(helpMenu);
 		
 		setJMenuBar(menuBar);
 	}
@@ -69,7 +76,7 @@ public class UserMainView extends JFrame {
 
 		this.add(contentPane);
 		this.shownPanel = contentPane;
-
+		
 		this.getContentPane().revalidate();
 		this.getContentPane().repaint();
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);

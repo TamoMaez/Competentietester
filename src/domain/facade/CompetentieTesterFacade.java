@@ -31,12 +31,19 @@ public class CompetentieTesterFacade {
 	protected ScoreCalculator scoreCalculator; // -> returns a score/100
 	protected int numberOfQuestions = 9;
 	protected FileManager fileManager = new FileManager();
-	private List<Answer> answers;
-
+	public List<Answer> answers;
+	
+	public int currentQuestionPosition = 0;
 	
 	public CompetentieTesterFacade() {
 		categories = new HashMap<String, Category>();
 		questions = new ArrayList<Question>();
+		answers = new ArrayList<Answer>();
+		
+		/**
+		 * TESTING
+		 */
+		this.read();
 	}
 	
 	public List<Question> getAllQuestions() {
@@ -66,7 +73,6 @@ public class CompetentieTesterFacade {
 	public Question getQuestion(Question q) {
 		return questions.get(questions.indexOf(q));
 	}
-	
 	
 	/*
 	 * Admin
@@ -186,12 +192,12 @@ public class CompetentieTesterFacade {
 		answers.add(answer);
 	}
 
-	public void answerQuestion(List<Option> options, Question question, QuestionAnswerType type) {
+	public void answerQuestion(List<Option> options, Question question) {
 		if(question == null) {
 			throw new DomainException("Question can't be NULL");
 		}
 		
-		Answer answer = AnswerFactory.createAnswer(question, type);
+		Answer answer = AnswerFactory.createAnswer(question, question.getType());
 		
 		for (Option option : options) {
 			answer.addOption(option);
@@ -199,5 +205,35 @@ public class CompetentieTesterFacade {
 		
 		this.addAnswer(answer);
 	}
-
+	
+	public Question getNextQuestion() {
+		if(!isLastQuestion()){
+			return this.questions.get(currentQuestionPosition++);
+		}
+		return null;
+	}
+	
+	public boolean isLastQuestion(){
+		return this.currentQuestionPosition==this.questions.size();
+	}
+	
+	public int getTotalScore() {
+		int score = 0;
+		
+		for (Answer answer : this.answers) {
+			score += answer.getScore();
+		}
+		
+		return score;
+	}
+	public int getTotalMaxScore() {
+		int score = 0;
+		
+		for (Answer answer : this.answers) {
+			score += answer.getMaximumScore();
+		}
+		
+		return score;
+	}
+	
 }

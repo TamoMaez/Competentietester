@@ -123,6 +123,7 @@ public abstract class Question {
 	
 	public abstract void addStatement(String statement); 
 
+	public abstract QuestionAnswerType getType();
 	
 	public String toString(){
 		return getQuestion();
