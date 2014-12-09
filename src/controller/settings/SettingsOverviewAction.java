@@ -5,8 +5,8 @@ import java.util.List;
 
 import controller.AbstractTestAction;
 import view.ViewException;
-import view.panels.CategoryOverviewPanel;
-import view.panels.QuestionOverviewPanel;
+import view.panels.categories.CategoryOverviewPanel;
+import view.panels.questions.QuestionOverviewPanel;
 import domain.Category;
 import domain.Question;
 import domain.facade.CompetentieTesterFacade;

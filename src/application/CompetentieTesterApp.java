@@ -13,10 +13,11 @@ import view.AdminMainView;
 import view.UserMainView;
 import view.ViewException;
 import view.WelcomeView;
-import view.panels.CategoryDetailPanel;
-import view.panels.CategoryOverviewPanel;
-import view.panels.QuestionDetailPanel;
-import view.panels.QuestionOverviewPanel;
+import view.panels.categories.CategoryDetailPanel;
+import view.panels.categories.CategoryOverviewPanel;
+import view.panels.questions.ChooseCategoryPanel;
+import view.panels.questions.QuestionDetailPanel;
+import view.panels.questions.QuestionOverviewPanel;
 import controller.AbstractTestAction;
 import controller.AdminModeAction;
 import controller.NewFileAction;
@@ -28,6 +29,7 @@ import controller.category.CategoryDoneAction;
 import controller.category.CategoryEditAction;
 import controller.category.CategoryNewAction;
 import controller.category.CategoryOverviewAction;
+import controller.question.AddCategoryAction;
 import controller.question.QuestionDoneAction;
 import controller.question.QuestionEditAction;
 import controller.question.QuestionNewAction;
@@ -70,16 +72,23 @@ public class CompetentieTesterApp {
 		QuestionNewAction questionNewAction = new QuestionNewAction(service);
 		QuestionDoneAction questionDoneAction = new QuestionDoneAction(service);
 		
+		// Other actions
+		AddCategoryAction addCategoryAction = new AddCategoryAction(service);
+		
 		// Questionspanels
 		QuestionOverviewPanel questionOverviewPanel = new QuestionOverviewPanel(questionEditAction, questionNewAction);
-		QuestionDetailPanel questionDetailPanel = new QuestionDetailPanel(questionDoneAction);
+		QuestionDetailPanel questionDetailPanel = new QuestionDetailPanel(addCategoryAction);
 		
-		// attach panels to buttons
+		// attach panels to actions
 		questionOverviewAction.setOverviewPanel(questionOverviewPanel);
 		questionEditAction.setDetailPanel(questionDetailPanel);
 		questionNewAction.setDetailPanel(questionDetailPanel);
 		questionDoneAction.setDetailPanel(questionDetailPanel);
 		questionDoneAction.setOverviewPanel(questionOverviewPanel);
+		
+		// add category
+		ChooseCategoryPanel chooseCategoryPanel = new ChooseCategoryPanel(null);
+		addCategoryAction.setDetailPanel(chooseCategoryPanel);
 		
 		// Settingsactions
 		SettingsOverviewAction settingsOverviewAction = new SettingsOverviewAction(service);
@@ -142,6 +151,7 @@ public class CompetentieTesterApp {
 		
 		adminAction.setOverviewPanel(adminMainView);
 		
+		addCategoryAction.setView(adminMainView);
 		
 		
 		/**

@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.util.List;
 
 import controller.AbstractTestAction;
-import view.panels.QuestionDetailPanel;
+import view.panels.questions.QuestionDetailPanel;
 import domain.Question;
 import domain.facade.CompetentieTesterFacade;
 

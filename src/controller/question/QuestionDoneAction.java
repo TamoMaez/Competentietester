@@ -3,8 +3,8 @@ package controller.question;
 import java.awt.event.ActionEvent;
 
 import controller.AbstractTestAction;
-import view.panels.QuestionDetailPanel;
-import view.panels.QuestionOverviewPanel;
+import view.panels.questions.QuestionDetailPanel;
+import view.panels.questions.QuestionOverviewPanel;
 import domain.facade.CompetentieTesterFacade;
 
 public class QuestionDoneAction extends AbstractTestAction {

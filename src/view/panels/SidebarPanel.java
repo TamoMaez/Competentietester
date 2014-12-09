@@ -9,6 +9,7 @@ import java.awt.LayoutManager;
 import java.util.List;
 
 import javax.swing.BorderFactory;
+import javax.swing.JLabel;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
@@ -22,11 +23,13 @@ public class SidebarPanel extends JPanel {
 	public SidebarPanel(List<AbstractTestAction> actions) {
 		initConstraints();
 		setPreferredSize(new Dimension(120, 0));
+		JLabel title = new JLabel("Quizcomponents");
+		title.setForeground(Color.WHITE);
+		this.add(title);
 		
 		this.setBackground(Color.gray);
 		
 		createMenu(actions);
-		this.setBorder(BorderFactory.createLineBorder(Color.black));
 	}
 
 	private void createMenu(List<AbstractTestAction> actions) {
@@ -34,7 +37,7 @@ public class SidebarPanel extends JPanel {
 
 	    for (AbstractTestAction action : actions) {
 	    	JMenuItem item = new JMenuItem(action);
-	    	item.setPreferredSize(new Dimension(118, 50));
+	    	item.setPreferredSize(new Dimension(118, 25));
 	    	item.setBorder(BorderFactory.createMatteBorder(0,0,1,0,Color.lightGray));
 
 	    	menuBar.add(item);

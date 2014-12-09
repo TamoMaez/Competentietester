@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JPanel;
 
-import view.panels.QuestionOverviewPanel;
+import view.panels.questions.QuestionOverviewPanel;
 import domain.facade.CompetentieTesterFacade;
 
 public class OpenFileAction extends AbstractTestAction {

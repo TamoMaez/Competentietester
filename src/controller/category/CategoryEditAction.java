@@ -6,8 +6,8 @@ import java.util.List;
 import javax.swing.JTable;
 
 import controller.AbstractTestMouseAdapter;
-import view.panels.CategoryDetailPanel;
-import view.panels.CategoryTableModel;
+import view.panels.categories.CategoryDetailPanel;
+import view.panels.categories.CategoryTableModel;
 import domain.Category;
 import domain.facade.CompetentieTesterFacade;
 

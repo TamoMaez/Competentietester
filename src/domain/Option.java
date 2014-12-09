@@ -57,4 +57,8 @@ public class Option {
 		return false;
 	}
 	
+	public String toString(){
+		return this.getStatement();
+	}
+	
 }
