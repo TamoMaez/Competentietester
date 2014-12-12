@@ -1,21 +1,35 @@
 package view.panels.questions;
 
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.table.AbstractTableModel;
 
-import domain.Category;
 import domain.Question;
-import domain.Score;
 
 public class QuestionTableModel extends AbstractTableModel {
 	private static final long serialVersionUID = 1L;
 
 	private List<Question> questions;
-	private String[] columnNames = { "Question", "Answers", "Correct answer", "Categories" };
+	private String[] columnNames = { "Question", "Answers", "Correct answer", "Categories", ""};
+
+	private ImageIcon deleteIcon;
 
 	public QuestionTableModel(List<Question> questions) {
 		this.questions = questions;
+		Image img = null;
+		try {
+			img = ImageIO.read(new File("res/delete.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Image resizedImage = img.getScaledInstance(10, 10, 0);
+		deleteIcon = new ImageIcon(resizedImage);
 	}
 
 	@Override
@@ -26,6 +40,11 @@ public class QuestionTableModel extends AbstractTableModel {
 	@Override
 	public int getColumnCount() {
 		return columnNames.length;
+	}
+	
+	@Override
+	public Class<?> getColumnClass(int column) {
+	    return (getValueAt(0, column).getClass());
 	}
 
 	@Override
@@ -42,6 +61,8 @@ public class QuestionTableModel extends AbstractTableModel {
 			return q.getCorrectStatements();
 		case 3:
 			return q.getCategories();
+		case 4:
+			return deleteIcon;
 		default:
 			return "";
 		}

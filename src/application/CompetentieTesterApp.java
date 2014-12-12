@@ -69,31 +69,33 @@ public class CompetentieTesterApp {
 		CategoryDetailPanel categoryDetailPanel = new CategoryDetailPanel(categoryDoneAction);
 		
 		// attach panels to buttons
-		categoryOverviewAction.setOverviewPanel(categoryOverviewPanel);
-		categoryEditAction.setDetailPanel(categoryDetailPanel);
-		categoryNewAction.setDetailPanel(categoryDetailPanel);
-		categoryDoneAction.setDetailPanel(categoryDetailPanel);
-		categoryDoneAction.setOverviewPanel(categoryOverviewPanel);
-		
-		// Questionsactions
-		QuestionOverviewAction questionOverviewAction = new QuestionOverviewAction(service);
-		QuestionEditAction questionEditAction = new QuestionEditAction(service);
-		QuestionNewAction questionNewAction = new QuestionNewAction(service);
-		QuestionDoneAction questionDoneAction = new QuestionDoneAction(service);
-		
-		// Other actions
-		AddCategoryAction addCategoryAction = new AddCategoryAction(service);
-		
-		// Questionspanels
-		QuestionOverviewPanel questionOverviewPanel = new QuestionOverviewPanel(questionEditAction, questionNewAction);
-		QuestionDetailPanel questionDetailPanel = new QuestionDetailPanel(addCategoryAction);
-		
-		// attach panels to buttons
-		questionOverviewAction.setOverviewPanel(questionOverviewPanel);
-		questionEditAction.setDetailPanel(questionDetailPanel);
-		questionNewAction.setDetailPanel(questionDetailPanel);
-		questionDoneAction.setDetailPanel(questionDetailPanel);
-		questionDoneAction.setOverviewPanel(questionOverviewPanel);
+				categoryOverviewAction.setOverviewPanel(categoryOverviewPanel);
+				categoryEditAction.setDetailPanel(categoryDetailPanel);
+				categoryEditAction.setPanel(categoryOverviewPanel);
+				categoryNewAction.setDetailPanel(categoryDetailPanel);
+				categoryDoneAction.setDetailPanel(categoryDetailPanel);
+				categoryDoneAction.setOverviewPanel(categoryOverviewPanel);
+				
+				// Questionsactions
+				QuestionOverviewAction questionOverviewAction = new QuestionOverviewAction(service);
+				QuestionEditAction questionEditAction = new QuestionEditAction(service);
+				QuestionNewAction questionNewAction = new QuestionNewAction(service);
+				QuestionDoneAction questionDoneAction = new QuestionDoneAction(service);
+				
+				// Other actions
+				AddCategoryAction addCategoryAction = new AddCategoryAction(service);
+				
+				// Questionspanels
+				QuestionOverviewPanel questionOverviewPanel = new QuestionOverviewPanel(questionEditAction, questionNewAction);
+				QuestionDetailPanel questionDetailPanel = new QuestionDetailPanel(addCategoryAction, questionDoneAction);
+				
+				// attach panels to buttons
+				questionOverviewAction.setOverviewPanel(questionOverviewPanel);
+				questionEditAction.setDetailPanel(questionDetailPanel);
+				questionEditAction.setPanel(questionOverviewPanel);
+				questionNewAction.setDetailPanel(questionDetailPanel);
+				questionDoneAction.setDetailPanel(questionDetailPanel);
+				questionDoneAction.setOverviewPanel(questionOverviewPanel);
 		
 		// new category for question
 		NewQuestionCategoryAction qcAction = new NewQuestionCategoryAction(service);

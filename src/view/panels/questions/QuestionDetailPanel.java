@@ -5,6 +5,9 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.List;
 
 import javax.swing.Action;
@@ -12,14 +15,23 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
+import controller.DeleteCursorAdapter;
+import controller.question.AddOptionAction;
+import controller.question.DeleteCategoryAction;
+import controller.question.DeleteOptionAction;
+import controller.question.QuestionStatementAction;
 import view.panels.options.OptionTableModel;
+import domain.Category;
+import domain.DomainException;
 import domain.Option;
 import domain.Question;
+import domain.Score;
 
 public class QuestionDetailPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
@@ -28,16 +40,17 @@ public class QuestionDetailPanel extends JPanel {
 	private JTextField titleField; 
 	private GridBagConstraints constraints = new GridBagConstraints();
 	private String initialQuestionTitle;
-	private List<Option> answers;
 	private JTable optionTable, categoryTable;
 
 
-	public QuestionDetailPanel(Action addCategoryAction) {
+	public QuestionDetailPanel(Action addCategoryAction, Action questionDoneAction) {
 		setLayout(new GridBagLayout());
 		initConstraints();
 
 		int rij = 0;
 		initTitle(rij);
+		rij++;
+		initTileButtons(rij);
 		rij++;
 		initCategories(rij);
 		rij++;
@@ -47,7 +60,32 @@ public class QuestionDetailPanel extends JPanel {
 		rij++;
 		initAnswerButtons(rij);
 		rij++;
-		initButtons(rij, null);
+		initButtons(rij, questionDoneAction);
+	}
+
+	private void initTileButtons(int rij) {
+		changeConstraints(1, 1, 1, rij);
+		JButton titleBtn = new JButton("Save title");
+		titleBtn.setActionCommand("Save title");
+		titleBtn.setText("Save title");
+		titleBtn.setAlignmentX(RIGHT_ALIGNMENT);
+		titleBtn.setAction(new QuestionStatementAction(this, titleBtn.getActionCommand()));
+		
+		JButton resetBtn = new JButton("Reset title");
+		resetBtn.setActionCommand("Reset title");
+		resetBtn.setText("Reset title");
+		resetBtn.setAlignmentX(RIGHT_ALIGNMENT);
+		resetBtn.setAction(new QuestionStatementAction(this, resetBtn.getActionCommand()));
+		
+		JPanel selectButtonsPanel = new JPanel();
+		selectButtonsPanel.setLayout(new BoxLayout(selectButtonsPanel, BoxLayout.LINE_AXIS));
+		selectButtonsPanel.add(Box.createRigidArea(new Dimension(10, 0)));
+		selectButtonsPanel.add(Box.createHorizontalGlue());
+		selectButtonsPanel.add(titleBtn);
+		selectButtonsPanel.add(Box.createRigidArea(new Dimension(10, 0)));
+		selectButtonsPanel.add(resetBtn);
+
+		addToPanel(selectButtonsPanel);
 	}
 
 	private void initCategoriesButtons(int rij, Action addCategoryAction) {
@@ -69,8 +107,9 @@ public class QuestionDetailPanel extends JPanel {
 		addToPanel(new JLabel("Categories: "));
 
 		categoryTable = new JTable();
-		//table.addMouseListener(action);
-		changeConstraints(1, 1, 1, rij);
+		categoryTable.addMouseListener(new DeleteCategoryAction(this));
+		categoryTable.addMouseMotionListener(new DeleteCursorAdapter());
+		changeConstraints(1, 2, 1, rij);
 		addToPanel(new JScrollPane(categoryTable));
 	}
 
@@ -79,16 +118,18 @@ public class QuestionDetailPanel extends JPanel {
 		addToPanel(new JLabel("Answers: "));
 
 		optionTable = new JTable();
-		//table.addMouseListener(action);
-		changeConstraints(1, 1, 1, rij);
+		optionTable.addMouseListener(new DeleteOptionAction(this));
+		optionTable.addMouseMotionListener(new DeleteCursorAdapter());
+		changeConstraints(1, 2, 1, rij);
 		addToPanel(new JScrollPane(optionTable));
 	}
 
 	private void initAnswerButtons(int rij) {
 		changeConstraints(1, 1, 1, rij);
-		JButton addBtn = new JButton("Add option");
+		JButton addBtn = new JButton("Add Option");
+		addBtn.setAction(new AddOptionAction(this));
 		addBtn.setAlignmentX(RIGHT_ALIGNMENT);
-		//changeBtn.setAction();
+		
 		JPanel selectButtonsPanel = new JPanel();
 		selectButtonsPanel.setLayout(new BoxLayout(selectButtonsPanel, BoxLayout.Y_AXIS));
 		selectButtonsPanel.add(Box.createHorizontalGlue());
@@ -98,31 +139,35 @@ public class QuestionDetailPanel extends JPanel {
 		addToPanel(selectButtonsPanel);
 	}
 
-
 	protected void initTitle(int rij) {
 		changeConstraints(1, 1, 0, rij);
 		addToPanel(new JLabel("Question: "));
 
-		changeConstraints(1, 1, 1, rij);
+		changeConstraints(1, 2, 1, rij);
 		titleField = new JTextField();
 		addToPanel(titleField);
 	}
 
 	protected void initButtons(int rij, Action action) {
-		JButton btnCancel = new JButton("Cancel");
+		JButton btnCancel = new JButton("Back");
 		changeConstraints(1, 1, 0, rij);		
 		btnCancel.setAction(action);
-		btnCancel.setActionCommand("Cancel");
-		btnCancel.setText("Cancel");
-		addToPanel(btnCancel);
-
+		btnCancel.setActionCommand("Back");
+		btnCancel.setText("Back");
+		
 		JButton btnOK = new JButton("Save");
 		btnOK.isDefaultButton();		
-		changeConstraints(1, 1, 1, rij);
 		btnOK.setAction(action);
 		btnOK.setActionCommand("Save");
 		btnOK.setText("Save");
-		addToPanel(btnOK);
+
+		JPanel btnPanel = new JPanel();
+		btnPanel.setLayout(new BoxLayout(btnPanel, BoxLayout.X_AXIS));
+		btnPanel.add(btnCancel);
+		btnPanel.add(Box.createRigidArea(new Dimension(10, 0)));
+		btnPanel.add(btnOK);
+		
+		addToPanel(btnPanel);
 	}
 
 	private void initConstraints() {
@@ -130,6 +175,7 @@ public class QuestionDetailPanel extends JPanel {
 		constraints.fill = GridBagConstraints.BOTH;
 		constraints.weightx = 1.0;
 		constraints.weighty = 1.0;
+		constraints.anchor = GridBagConstraints.CENTER;
 	}
 
 	protected void changeConstraints(int height, int width, int gridx, int gridy) {
@@ -142,8 +188,7 @@ public class QuestionDetailPanel extends JPanel {
 	protected GridBagConstraints getConstraints() {
 		return constraints;
 	}
-
-
+	
 	public void setQuestion(Question question) {
 		if(question == null) return;
 		this.question = question;
@@ -161,21 +206,32 @@ public class QuestionDetailPanel extends JPanel {
 	}
 
 	public void setAnswers(List<Option> answers) {
-		this.answers = answers;
 		update();
 	}
 
 	public void update() {
 		if (getQuestion() != null) {
 			titleField.setText(getQuestion().getQuestion());
-
-			optionTable.setModel(new OptionTableModel(question.getOptions()));
-			categoryTable.setModel(new QuestionCategoryTableModel(question));
+			if(question.getOptions() != null)
+				try {
+					optionTable.setModel(new OptionTableModel(question.getOptions()));
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			if(question.getCategories() != null)
+				try {
+					categoryTable.setModel(new QuestionCategoryTableModel(question));
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 		}
 	}
-
-	private List<Option> getAnswers() {
-		return answers;
+	
+	public String setQuestionTitle(){
+		getQuestion().setQuestion(titleField.getText());
+		return titleField.getText();
 	}
 
 	public Question getQuestion() {
@@ -187,6 +243,10 @@ public class QuestionDetailPanel extends JPanel {
 	}
 
 	public void setCorrectAnswers(List<Option> correctAnswers) {
+	}
+	
+	public JTextField getTitleField(){
+		return this.titleField;
 	}
 
 }

@@ -1,34 +1,44 @@
 package controller.question;
 
 import java.awt.event.MouseEvent;
-import java.util.List;
 
 import javax.swing.JTable;
 
 import controller.AbstractTestMouseAdapter;
+import view.ViewException;
+import view.panels.categories.CategoryOverviewPanel;
 import view.panels.questions.QuestionDetailPanel;
+import view.panels.questions.QuestionOverviewPanel;
 import view.panels.questions.QuestionTableModel;
-import domain.Category;
-import domain.Option;
 import domain.Question;
 import domain.facade.CompetentieTesterFacade;
 
 public class QuestionEditAction extends AbstractTestMouseAdapter {
 
 	private QuestionDetailPanel detailPanel;
+	private QuestionOverviewPanel panel;
 
 	public QuestionEditAction(CompetentieTesterFacade service) {
 		super(service);
 	}
 	
 	public void mouseClicked(MouseEvent evt) {
-		
 		JTable table = (JTable)(evt.getSource());
 		QuestionTableModel tablem = (QuestionTableModel)(table.getModel());
 		Question clickedQuestion = (Question) tablem.getQuestionAt(table.getSelectedRow());
-		getDetailPanel().setQuestion(clickedQuestion);
 		
-		setPanelAsContentForView(getDetailPanel());		
+		if(table.getSelectedColumn() == table.getColumnCount()-1){
+			System.out.println("Question removed:" + getService().removeQuestion(clickedQuestion));
+			try {
+				panel.update();
+			} catch (ViewException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else{		
+			getDetailPanel().setQuestion(clickedQuestion);		
+			setPanelAsContentForView(getDetailPanel());	
+		}
 	}
 
 	private QuestionDetailPanel getDetailPanel() {
@@ -39,4 +49,7 @@ public class QuestionEditAction extends AbstractTestMouseAdapter {
 		this.detailPanel = questionDetailPanel;
 	}
 
+	public void setPanel(QuestionOverviewPanel panel){
+		this.panel = panel;
+	}
 }

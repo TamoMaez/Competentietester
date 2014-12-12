@@ -23,7 +23,6 @@ public class NewQuestionCategoryAction extends AbstractTestAction {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand().equals("Add")){
-			System.out.println(getDetailPanel().getMaxPoint() + "!!!!!");
 			getService().addCategoryToQuestion(getOverviewPanel().getQuestion(), getDetailPanel().getCategory(), getDetailPanel().getMaxPoint());
 			
 			getOverviewPanel().update();

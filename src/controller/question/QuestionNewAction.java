@@ -34,7 +34,10 @@ public class QuestionNewAction extends AbstractTestAction {
 	public void actionPerformed(ActionEvent arg0) {	
 		Question q = getQuestionType();
 		getDetailPanel().setQuestion(q);
-		q.addOption(new Option("Option 1"));
+		if(q instanceof YesNoQuestion){
+			q.addOption(new Option("Yes"));
+			q.addOption(new Option("No"));
+		}else q.addOption(new Option("Option 1"));
 		getService().addQuestion(q);
 		setPanelAsContentForView(getDetailPanel());	
 	}

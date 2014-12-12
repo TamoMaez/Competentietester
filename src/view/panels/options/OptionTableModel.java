@@ -1,7 +1,12 @@
 package view.panels.options;
 
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.table.AbstractTableModel;
 
 import domain.Option;
@@ -11,10 +16,14 @@ public class OptionTableModel extends AbstractTableModel {
 	private static final long serialVersionUID = 1L;
 
 	private List<Option> options;
+	private ImageIcon deleteIcon;
 	private String[] columnNames = {"Option", "Correct", ""};
 
-	public OptionTableModel(List<Option> options) {
+	public OptionTableModel(List<Option> options) throws IOException {
 		this.options = options;
+		Image img = ImageIO.read(new File("res/delete.png"));
+		Image resizedImage = img.getScaledInstance(10, 10, 0);
+		deleteIcon = new ImageIcon(resizedImage);
 	}
 
 	@Override
@@ -42,6 +51,8 @@ public class OptionTableModel extends AbstractTableModel {
 			return option.getStatement();
 		case 1:
 			return option.isCorrect();
+		case 2:
+			return deleteIcon;
 		default:
 			return "Delete";
 		}

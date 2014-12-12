@@ -1,5 +1,6 @@
 package view.panels.categories;
 
+import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -54,9 +55,10 @@ public class CategoryOverviewPanel extends JPanel {
 
 	private void initButtons(int row, Action action) {
 		JButton btnNew = new JButton(action);
-		btnNew.setPreferredSize(new Dimension(40, 40));
 		changeConstraints(1, 1, 2, row);
-		addToPanel(btnNew);
+		JPanel newPanel = new JPanel();
+		newPanel.add(btnNew, BorderLayout.EAST);
+		addToPanel(newPanel);
 	}
 
 	public void update() throws ViewException {

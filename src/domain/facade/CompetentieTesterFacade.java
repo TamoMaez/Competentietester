@@ -160,6 +160,14 @@ public class CompetentieTesterFacade {
 	/*
 	 * Admin
 	 */
+	public boolean removeQuestion(Question q){
+		return this.questions.remove(q);
+	}
+	
+	public Category removeCategory(Category c){
+		return this.categories.remove(c.getTitle());
+	}
+	
 	public void read(){
 		fileManager.read(this);
 	}

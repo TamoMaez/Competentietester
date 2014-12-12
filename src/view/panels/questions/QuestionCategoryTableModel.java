@@ -1,5 +1,11 @@
 package view.panels.questions;
 
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.table.AbstractTableModel;
 
 import domain.Category;
@@ -11,9 +17,18 @@ public class QuestionCategoryTableModel extends AbstractTableModel {
 
 	private Question question;
 	private String[] columnNames = { "Title", "Points" , ""};
+	private ImageIcon deleteIcon;
 
-	public QuestionCategoryTableModel(Question question) {
+	public QuestionCategoryTableModel(Question question) throws IOException {
 		this.question = question;
+		Image img = ImageIO.read(new File("res/delete.png"));
+		Image resizedImage = img.getScaledInstance(10, 10, 0);
+		deleteIcon = new ImageIcon(resizedImage);
+	}
+	
+	@Override
+	public Class<?> getColumnClass(int column) {
+	    return (getValueAt(0, column).getClass());
 	}
 
 	@Override
@@ -36,6 +51,8 @@ public class QuestionCategoryTableModel extends AbstractTableModel {
 			return c.getTitle();
 		case 1:
 			return question.getMaxPointsForCategory(c);
+		case 2:
+			return deleteIcon;
 		default:
 			return "Delete";
 		}
