@@ -45,6 +45,12 @@ public class QuestionDoneAction extends AbstractTestAction {
 			}
 			getService().writeToCurrentFile();;
 		}
+		
+		// check vraag
+		/*List<String> errors = 
+		if(getDetailPanel().getQuestion().getCategories().size() < 1){
+			String
+		}*/
 		setPanelAsContentForView(getOverviewPanel());	
 	}
 

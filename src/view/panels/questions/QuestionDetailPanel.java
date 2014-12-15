@@ -5,8 +5,6 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.List;
 
@@ -15,23 +13,19 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
-import controller.DeleteCursorAdapter;
 import controller.question.AddOptionAction;
 import controller.question.DeleteCategoryAction;
 import controller.question.DeleteOptionAction;
 import controller.question.QuestionStatementAction;
+import view.panels.GeneralTable;
 import view.panels.options.OptionTableModel;
-import domain.Category;
-import domain.DomainException;
 import domain.Option;
 import domain.Question;
-import domain.Score;
 
 public class QuestionDetailPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
@@ -40,7 +34,7 @@ public class QuestionDetailPanel extends JPanel {
 	private JTextField titleField; 
 	private GridBagConstraints constraints = new GridBagConstraints();
 	private String initialQuestionTitle;
-	private JTable optionTable, categoryTable;
+	private GeneralTable optionTable, categoryTable;
 
 
 	public QuestionDetailPanel(Action addCategoryAction, Action questionDoneAction) {
@@ -106,9 +100,8 @@ public class QuestionDetailPanel extends JPanel {
 		changeConstraints(1, 1, 0, rij);
 		addToPanel(new JLabel("Categories: "));
 
-		categoryTable = new JTable();
+		categoryTable = new GeneralTable(true);
 		categoryTable.addMouseListener(new DeleteCategoryAction(this));
-		categoryTable.addMouseMotionListener(new DeleteCursorAdapter());
 		changeConstraints(1, 2, 1, rij);
 		addToPanel(new JScrollPane(categoryTable));
 	}
@@ -117,9 +110,8 @@ public class QuestionDetailPanel extends JPanel {
 		changeConstraints(1, 1, 0, rij);
 		addToPanel(new JLabel("Answers: "));
 
-		optionTable = new JTable();
+		optionTable = new GeneralTable(true);
 		optionTable.addMouseListener(new DeleteOptionAction(this));
-		optionTable.addMouseMotionListener(new DeleteCursorAdapter());
 		changeConstraints(1, 2, 1, rij);
 		addToPanel(new JScrollPane(optionTable));
 	}
@@ -215,20 +207,36 @@ public class QuestionDetailPanel extends JPanel {
 			if(question.getOptions() != null)
 				try {
 					optionTable.setModel(new OptionTableModel(question.getOptions()));
+					optionTable.setColumnWidths(-1, 75, 50);
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			if(question.getCategories() != null)
 				try {
 					categoryTable.setModel(new QuestionCategoryTableModel(question));
+					categoryTable.setColumnWidths(-1, 75, 50);
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 		}
 	}
 	
+	public GeneralTable getOptionTable() {
+		return optionTable;
+	}
+
+	public void setOptionTable(GeneralTable optionTable) {
+		this.optionTable = optionTable;
+	}
+
+	public GeneralTable getCategoryTable() {
+		return categoryTable;
+	}
+
+	public void setCategoryTable(GeneralTable categoryTable) {
+		this.categoryTable = categoryTable;
+	}
+
 	public String setQuestionTitle(){
 		getQuestion().setQuestion(titleField.getText());
 		return titleField.getText();

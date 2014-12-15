@@ -39,6 +39,7 @@ public class AddOptionAction extends AbstractAction {
 			JOptionPane.showMessageDialog(null, a.getMessage());
 		}
 		panel.update();
+		panel.getOptionTable().scrollToBottom();
 	}
 
 

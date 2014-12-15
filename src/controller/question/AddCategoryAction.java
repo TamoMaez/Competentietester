@@ -39,7 +39,7 @@ public class AddCategoryAction extends AbstractTestAction {
 			catNotInQ.removeAll(getOverviewPanel().getQuestion().getCategories());
 		}
 		getDetailPanel().setCategories(catNotInQ);
-		setPanelAsContentForView(getDetailPanel());		
+		setPanelAsContentForView(getDetailPanel());	
 	}
 
 	private QuestionDetailPanel getOverviewPanel(){

@@ -18,6 +18,7 @@ import javax.swing.JTable;
 import javax.swing.table.TableModel;
 
 import view.ViewException;
+import view.panels.GeneralTable;
 import domain.Category;
 
 
@@ -25,7 +26,7 @@ public class CategoryOverviewPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private GridBagConstraints constraints = new GridBagConstraints();
 	private List<Category> categories;
-	private JTable table;
+	private GeneralTable table;
 	private TableModel tableModel;
 	
 	public CategoryOverviewPanel(MouseAdapter editAction, Action newAction) throws ViewException {
@@ -47,7 +48,7 @@ public class CategoryOverviewPanel extends JPanel {
 	}
 
 	private void initList(int row, MouseAdapter action) {
-		table = new JTable();
+		table = new GeneralTable(true);
 		table.addMouseListener(action);
 		changeConstraints(6, 3, 0, row);
 		addToPanel(new JScrollPane(table));
@@ -64,6 +65,7 @@ public class CategoryOverviewPanel extends JPanel {
 	public void update() throws ViewException {
 		tableModel = new CategoryTableModel(getCategories());
 		table.setModel(tableModel);
+		table.setColumnWidths(-1, -1, 50);
 	}
 
 	private void initConstraints() {

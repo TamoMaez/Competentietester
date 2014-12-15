@@ -17,6 +17,7 @@ import javax.swing.JTable;
 import javax.swing.table.TableModel;
 
 import view.ViewException;
+import view.panels.GeneralTable;
 import controller.question.QuestionEditAction;
 import controller.question.QuestionNewAction;
 import domain.Question;
@@ -26,7 +27,7 @@ public class QuestionOverviewPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private GridBagConstraints constraints = new GridBagConstraints();
 	private List<Question> questions;
-	private JTable table;
+	private GeneralTable table;
 	private TableModel tableModel;
 
 	public QuestionOverviewPanel(QuestionEditAction editAction,
@@ -48,7 +49,7 @@ public class QuestionOverviewPanel extends JPanel {
 	}
 	
 	private void initList(int row, MouseAdapter action) {
-		table = new JTable();
+		table = new GeneralTable(true);
 		table.addMouseListener(action);
 		changeConstraints(6, 3, 0, row);
 		addToPanel(new JScrollPane(table));
@@ -65,6 +66,7 @@ public class QuestionOverviewPanel extends JPanel {
 	public void update() throws ViewException {
 		tableModel = new QuestionTableModel(getQuestions());
 		table.setModel(tableModel);
+		table.setColumnWidths(-1, -1, 200, 200, 50);
 	}
 	
 	private void initConstraints() {

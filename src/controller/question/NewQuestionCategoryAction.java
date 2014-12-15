@@ -25,7 +25,9 @@ public class NewQuestionCategoryAction extends AbstractTestAction {
 		if(e.getActionCommand().equals("Add")){
 			getService().addCategoryToQuestion(getOverviewPanel().getQuestion(), getDetailPanel().getCategory(), getDetailPanel().getMaxPoint());
 			
-			getOverviewPanel().update();
+			QuestionDetailPanel panel = getOverviewPanel();
+			panel.update();
+			panel.getCategoryTable().scrollToBottom();
 		}
 		
 		//observer nog toevoegen

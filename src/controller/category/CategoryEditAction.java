@@ -31,6 +31,7 @@ public class CategoryEditAction extends AbstractTestMouseAdapter {
 		if(table.getSelectedColumn() == table.getColumnCount()-1){
 			System.out.println("Category removed:" + getService().removeCategory(clickedCategory));
 			try {
+				panel.setCategories(getService().getCategories());
 				panel.update();
 			} catch (ViewException e) {
 				// TODO Auto-generated catch block
