@@ -12,6 +12,10 @@ public class RandomSelector implements QuestionSelector {
 	public List<Question> selectQuestions(List<Question> questions, int numberOfQuestions) {
 		List<Question> shuffleQuestions = new ArrayList<>(questions);
 		Collections.shuffle(shuffleQuestions);
+		
+		if (numberOfQuestions > shuffleQuestions.size()) {
+			numberOfQuestions = shuffleQuestions.size();
+		}
 		return shuffleQuestions.subList(0, numberOfQuestions);
 	}
 	

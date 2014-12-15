@@ -354,13 +354,7 @@ public class CompetentieTesterFacade {
 	}
 	
 	public int getTotalScore() {
-		int score = 0;
-		
-		for (Answer answer : this.answers) {
-			score += answer.getScore();
-		}
-		
-		return score;
+		return this.getScoreCalculator().calculateScore(answers, this.getTotalMaxScore(), this.getTimePassed(), this.getTimePerQuestion());
 	}
 	public int getTotalMaxScore() {
 		int score = 0;

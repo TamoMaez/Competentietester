@@ -7,6 +7,6 @@ import domain.Answer;
 
 public interface ScoreCalculator {
 
-	int calculateScore(List<Answer> answers);
+	int calculateScore(List<Answer> answers, int totalMaxScore, int timePassed, int timePerQuestion);
 	
 }
