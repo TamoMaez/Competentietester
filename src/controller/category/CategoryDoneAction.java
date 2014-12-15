@@ -33,17 +33,17 @@ public class CategoryDoneAction extends AbstractTestAction {
 			}
 			
 			getService().addCategory(getDetailPanel().getCreatedCategory());
-			try {
-				getOverviewPanel().update();
-			} catch (ViewException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			getService().writeToCurrentFile();;
+			getService().writeToCurrentFile();
 		}
 		
 		List<Category> categories = getService().getCategories();
 		getOverviewPanel().setCategories(categories);
+		try {
+			getOverviewPanel().update();
+		} catch (ViewException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		setPanelAsContentForView(getOverviewPanel());		
 	}
 

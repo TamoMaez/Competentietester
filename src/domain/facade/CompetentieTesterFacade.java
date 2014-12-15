@@ -103,7 +103,7 @@ public class CompetentieTesterFacade {
 		/**
 		 * TESTING
 		 */
-		this.read();
+		//this.read();
 	}
 	
 	public void start() {
@@ -166,6 +166,10 @@ public class CompetentieTesterFacade {
 	
 	public Category removeCategory(Category c){
 		return this.categories.remove(c.getTitle());
+	}
+	
+	public void createNewQuiz() {
+		write();
 	}
 	
 	public void read(){
@@ -354,7 +358,13 @@ public class CompetentieTesterFacade {
 	}
 	
 	public int getTotalScore() {
-		return this.getScoreCalculator().calculateScore(answers, this.getTotalMaxScore(), this.getTimePassed(), this.getTimePerQuestion());
+		int score = 0;
+		
+		for (Answer answer : this.answers) {
+			score += answer.getScore();
+		}
+		
+		return score;
 	}
 	public int getTotalMaxScore() {
 		int score = 0;

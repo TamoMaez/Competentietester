@@ -3,6 +3,9 @@ package application;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
 import view.AdminMainView;
 import view.UserMainView;
 import view.ViewException;
@@ -46,7 +49,10 @@ import controller.settings.SettingsOverviewAction;
 import domain.facade.CompetentieTesterFacade;
 
 public class CompetentieTesterApp {
-	public static void main(String[] args) throws ViewException{
+	public static void main(String[] args) throws ViewException, ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException{
+		
+		UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+		
 		CompetentieTesterFacade service = new CompetentieTesterFacade();
 
 		// Modeactions

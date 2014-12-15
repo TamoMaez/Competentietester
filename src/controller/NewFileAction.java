@@ -2,7 +2,6 @@ package controller;
 
 import java.awt.event.ActionEvent;
 
-import controller.question.QuestionOverviewAction;
 import view.panels.questions.QuestionOverviewPanel;
 import domain.facade.CompetentieTesterFacade;
 
@@ -17,7 +16,7 @@ public class NewFileAction extends AbstractTestAction {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		getService().createNewQuiz();
 		
 	}
 

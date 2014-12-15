@@ -3,6 +3,7 @@ package controller.question;
 import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
+import javax.swing.JOptionPane;
 
 import view.panels.questions.QuestionDetailPanel;
 
@@ -19,7 +20,11 @@ public class QuestionStatementAction extends AbstractAction {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand().equals("Save title")){
-			panel.getQuestion().setQuestion(panel.getTitleField().getText());
+			try{
+				panel.getQuestion().setQuestion(panel.getTitleField().getText());
+			}catch(Exception e1){
+				JOptionPane.showMessageDialog(null, "Save a descent questiontitle");
+			}
 		}
 		panel.update();
 	}

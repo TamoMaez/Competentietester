@@ -1,16 +1,23 @@
 package controller.question;
 
+import java.awt.Component;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
 import controller.AbstractTestAction;
 import view.ViewException;
+import view.panels.GeneralTable;
 import view.panels.categories.CategoryTableModel;
 import view.panels.questions.QuestionDetailPanel;
 import view.panels.questions.QuestionOverviewPanel;
 import domain.Category;
+import domain.YesNoQuestion;
 import domain.facade.CompetentieTesterFacade;
 
 public class QuestionDoneAction extends AbstractTestAction {
@@ -36,7 +43,12 @@ public class QuestionDoneAction extends AbstractTestAction {
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand().equals("Save")){
 
-			getDetailPanel().setQuestionTitle();;
+			try {
+				getDetailPanel().setQuestionTitle();
+			} catch (Exception e2) {
+				JOptionPane.showMessageDialog(null, "Save a descent questiontitle");
+				return;
+			}
 			try {
 				getOverviewPanel().update();
 			} catch (ViewException e1) {
@@ -46,11 +58,26 @@ public class QuestionDoneAction extends AbstractTestAction {
 			getService().writeToCurrentFile();;
 		}
 		
-		// check vraag
-		/*List<String> errors = 
+		// check vraag 
+		Map<String, Component> errors = new HashMap<>();
 		if(getDetailPanel().getQuestion().getCategories().size() < 1){
-			String
-		}*/
+			errors.put(new String("Add a category"), getDetailPanel().getCategoryTable());
+		}
+		if(getDetailPanel().getQuestion().getOptions().size() < 1){
+			errors.put(new String("Add an option "), getDetailPanel().getOptionTable());
+		} else if(getDetailPanel().getQuestion().getCorrectOptions().size() < 1){
+			errors.put(new String("Check the correct option "), getDetailPanel().getOptionTable());
+		} else if(getDetailPanel().getQuestion() instanceof YesNoQuestion && 
+				getDetailPanel().getQuestion().getCorrectOptions().size() > 1){
+			errors.put(new String("Uncheck yes or no"), getDetailPanel().getOptionTable());
+		}
+		if(errors.size() >= 1){
+			for (Map.Entry<String, Component> entry : errors.entrySet()){
+				JOptionPane.showMessageDialog(entry.getValue(), entry.getKey());
+			}
+			return;
+		}
+		
 		setPanelAsContentForView(getOverviewPanel());	
 	}
 

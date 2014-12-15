@@ -3,6 +3,7 @@ package controller;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 
@@ -21,7 +22,11 @@ public abstract class DeleteAction extends MouseAdapter{
 		int column = table.getSelectedColumn();
 
 		if(column == table.getColumnCount()-1){
-			deleteRow(table, row);
+			try{ 
+				deleteRow(table, row);
+			} catch(Exception e){
+				JOptionPane.showMessageDialog(table, e.getMessage());
+			}
 		}		
 	}
 

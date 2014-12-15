@@ -24,17 +24,19 @@ public class FileManager {
 	public void write(CompetentieTesterFacade facade) {
 		File file = setSaveFile();
 		if(file != null){
+			setReader(file);
+			fileChooser.setSelectedFile(file);
 			writer.write(file, facade);
 		}
 	}
 	
+	/*
+	 * ONLY FOR TESTING
+	 *
 	public void writeToCurrentFile(CompetentieTesterFacade facade) {
 		writer.write(fileChooser.getSelectedFile(), facade);
 	}
 
-	/*
-	 * ONLY FOR TESTING
-	 *
 	public void read(CompetentieTesterFacade facade) {
 		File file = chooseFile();
 		if(file != null && setReader(file)){
@@ -43,9 +45,12 @@ public class FileManager {
 	}
 	*/
 	
+	public void writeToCurrentFile(CompetentieTesterFacade facade) {
+		writer.write(fileChooser.getSelectedFile(), facade);
+	}
+	
 	public void read(CompetentieTesterFacade facade) {
 		File file = new File("res/vragen-uit-excel.xlsx");
-		
 		if(file != null && setReader(file)){
 			reader.read(file, facade);
 		}

@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 
 import domain.Category;
@@ -76,6 +77,10 @@ public class QuestionCategoryTableModel extends AbstractTableModel {
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {	 
 		if(columnIndex == 1){
 			aValue = Integer.parseInt(aValue.toString());
+			if((int) aValue < 1){
+				JOptionPane.showMessageDialog(null, "Categorypoints must be greater than zero");
+				return;
+			}
 			for(Option o : question.getOptions()){
 				o.getScoreByCategory(question.getCategories().get(rowIndex)).setMaxPoints((int) aValue);
 				if(o.isCorrect())
