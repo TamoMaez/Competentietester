@@ -48,7 +48,7 @@ public class TestDoneAction extends AbstractTestAction {
 		}
 		
 		if (nextQuestion == true) {
-			testDone = true;
+			setTestDone(true);
 		  // User has answered question
 			List<Option> options = new ArrayList<>();
 			
@@ -93,5 +93,13 @@ public class TestDoneAction extends AbstractTestAction {
 	
 	public void setQuestion(Question question) {
 		this.question = question;
+	}
+
+	public boolean isTestDone() {
+		return testDone;
+	}
+
+	public void setTestDone(boolean testDone) {
+		this.testDone = testDone;
 	}
 }

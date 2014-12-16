@@ -6,7 +6,6 @@ import javax.swing.JTable;
 
 import controller.AbstractTestMouseAdapter;
 import view.ViewException;
-import view.panels.categories.CategoryOverviewPanel;
 import view.panels.questions.QuestionDetailPanel;
 import view.panels.questions.QuestionOverviewPanel;
 import view.panels.questions.QuestionTableModel;

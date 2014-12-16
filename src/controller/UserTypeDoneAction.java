@@ -2,11 +2,9 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import view.ViewException;
 import view.panels.categories.CategoryDetailPanel;
 import view.panels.WelcomePanel;
 import domain.Category;
@@ -31,7 +29,8 @@ public class UserTypeDoneAction extends AbstractTestAction {
 			
 			Iterator<Entry<String, Category>> it = getService().getCategoriesMap().entrySet().iterator();
 		    while (it.hasNext()) {
-		        Map.Entry pairs = (Map.Entry)it.next();
+				@SuppressWarnings("rawtypes")
+				Map.Entry pairs = (Map.Entry)it.next();
 		        System.out.println(pairs.getKey() + " = " + pairs.getValue());
 		        if (pairs.getValue().equals(getDetailPanel().getCreatedCategory())) {
 		        	it.remove(); // avoids a ConcurrentModificationException
@@ -42,8 +41,6 @@ public class UserTypeDoneAction extends AbstractTestAction {
 			
 			getService().write();
 		}
-		
-		List<Category> categories = getService().getCategories();
 		setPanelAsContentForView(getWelcomePanel());		
 	}
 

@@ -7,9 +7,7 @@ import java.util.List;
 
 import javax.swing.JFrame;
 
-import view.UserMainView;
 import view.WelcomeView;
-import view.panels.UserWelcomePanel;
 import domain.facade.CompetentieTesterFacade;
 
 public class LogoutAction extends AbstractTestAction{

@@ -1,13 +1,11 @@
 package view.panels;
 
 import java.awt.Component;
-import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.text.SimpleDateFormat;
 
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -30,7 +28,7 @@ public class EvaluationTestPanel extends JPanel {
 	private BackToUserHomeAction backToUserHomeAction;
 	
 	public EvaluationTestPanel(BackToUserHomeAction backToUserHomeAction, CompetentieTesterFacade service) {
-		this.service = service;
+		this.setService(service);
 		setLayout(new GridBagLayout());
 		this.backToUserHomeAction = backToUserHomeAction;
 	}
@@ -161,6 +159,16 @@ public class EvaluationTestPanel extends JPanel {
 
 	public void setEvaluation(Evaluation lastEvaluation) {
 		this.evaluation = lastEvaluation;
+	}
+
+
+	public CompetentieTesterFacade getService() {
+		return service;
+	}
+
+
+	public void setService(CompetentieTesterFacade service) {
+		this.service = service;
 	}
 	
 }

@@ -1,6 +1,5 @@
 package view.panels;
 
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -21,7 +20,6 @@ import javax.swing.Timer;
 import controller.NextQuestionAction;
 import controller.TestDoneAction;
 import view.ViewException;
-import domain.Option;
 import domain.Question;
 import domain.facade.CompetentieTesterFacade;
 

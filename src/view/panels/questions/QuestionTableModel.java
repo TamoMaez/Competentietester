@@ -2,7 +2,6 @@ package view.panels.questions;
 
 import java.util.List;
 
-import javax.swing.ImageIcon;
 import javax.swing.table.AbstractTableModel;
 
 import controller.ImageManager;

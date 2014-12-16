@@ -1,14 +1,10 @@
 package controller.question;
 
 import java.awt.event.ActionEvent;
-import java.util.List;
 
-import controller.AbstractTestAction;
 import view.ViewException;
-import view.panels.categories.CategoryOverviewPanel;
 import view.panels.questions.QuestionOverviewPanel;
-import domain.Category;
-import domain.Question;
+import controller.AbstractTestAction;
 import domain.facade.CompetentieTesterFacade;
 
 public class QuestionOverviewAction extends AbstractTestAction {

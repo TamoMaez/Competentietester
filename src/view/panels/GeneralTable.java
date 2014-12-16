@@ -13,7 +13,7 @@ import controller.DeleteCursorAdapter;
  * 2) forceer grootte van de kolommen
  * 3) scrollToBottom() voor bv. na het toevoegen van een rij
  *
- */
+ **/
 
 public class GeneralTable extends JTable {
 	private static final long serialVersionUID = 1L;

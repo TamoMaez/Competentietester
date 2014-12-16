@@ -1,7 +1,6 @@
 package controller.question;
 
 import java.awt.event.ActionEvent;
-import java.util.List;
 
 import javax.swing.JOptionPane;
 

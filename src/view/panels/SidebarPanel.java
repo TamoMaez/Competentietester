@@ -66,6 +66,7 @@ public class SidebarPanel extends JPanel {
 	
 	
 	class VerticalMenuBar extends JMenuBar {
+		private static final long serialVersionUID = 1L;
 		private final LayoutManager grid = new GridLayout(0,1);
 		public VerticalMenuBar() {
 			setLayout(grid);

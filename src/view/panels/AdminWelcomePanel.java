@@ -1,23 +1,16 @@
 package view.panels;
 
 import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.text.SimpleDateFormat;
 
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import controller.HistoryOverviewAction;
 import controller.NewFileAction;
 import controller.OpenFileAction;
-import controller.StartTestAction;
-import domain.facade.CompetentieTesterFacade;
 
 public class AdminWelcomePanel extends JPanel {
 

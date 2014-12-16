@@ -24,11 +24,19 @@ public class BackToUserHomeAction extends AbstractTestAction{
 	}
 
 	public void setOverviewPanel(UserMainView mainView) {
-		this.mainView = mainView;
+		this.setMainView(mainView);
 	}
 	
 	public void setUserWelcomePanel(UserWelcomePanel userWelcomePanel) {
 		this.userWelcomePanel = userWelcomePanel;
+	}
+
+	public UserMainView getMainView() {
+		return mainView;
+	}
+
+	private void setMainView(UserMainView mainView) {
+		this.mainView = mainView;
 	}
 	
 }

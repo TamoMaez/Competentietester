@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Category implements Comparable {
+public class Category implements Comparable<Object> {
 	private String title;
 	private String description;
 	private Category mainCategory;

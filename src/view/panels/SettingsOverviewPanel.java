@@ -4,8 +4,6 @@ import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Vector;
 
 import javax.swing.DefaultComboBoxModel;
@@ -15,10 +13,12 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
+import controller.settings.QuestionSelectorAction;
+import controller.settings.QuestionTimeSpinnerChangeAction;
+import controller.settings.ScoreCalculatorAction;
 import controller.settings.SettingsOverviewAction;
+import controller.settings.QuestionSpinnerChangerAction;
 import domain.facade.CompetentieTesterFacade;
 import domain.questionSelectorStrategy.QuestionSelector;
 import domain.scoreCalculatorStrategy.ScoreCalculator;
@@ -51,7 +51,8 @@ public class SettingsOverviewPanel extends JPanel {
 		changeConstraints(1, 1, 0, row);
 		addToPanel(new JLabel(title));
 		changeConstraints(1, 1, 1, row);
-		questionSelectorField = new JComboBox<QuestionSelector>();
+		questionSelectorField = new JComboBox<QuestionSelector>();		
+		questionSelectorField.setAction(new QuestionSelectorAction(service));	
 		addToPanel(questionSelectorField);
 	}
 	
@@ -60,6 +61,7 @@ public class SettingsOverviewPanel extends JPanel {
 		addToPanel(new JLabel(title));
 		changeConstraints(1, 1, 1, row);
 		scoreCalculatorField = new JComboBox<ScoreCalculator>();
+		scoreCalculatorField.setAction(new ScoreCalculatorAction(service));
 		addToPanel(scoreCalculatorField);
 	}
 	
@@ -68,6 +70,7 @@ public class SettingsOverviewPanel extends JPanel {
 		addToPanel(new JLabel(title));
 		changeConstraints(1, 1, 1, row);
 		spinnerAantalVragen = new SpinnerNumberModel(service.getNumberOfQuestions(),4,10,1);
+		spinnerAantalVragen.addChangeListener(new QuestionSpinnerChangerAction(service));
 	    JSpinner anlist = new JSpinner(spinnerAantalVragen);
 	    ((JSpinner.DefaultEditor) anlist.getEditor()).getTextField().setEditable(false);
 	    addToPanel(anlist);
@@ -78,6 +81,7 @@ public class SettingsOverviewPanel extends JPanel {
 		addToPanel(new JLabel(title));
 		changeConstraints(1, 1, 1, row);
 		spinnerTijdPerVraag = new SpinnerNumberModel(service.getTimePerQuestion(),15,60,1);
+		spinnerTijdPerVraag.addChangeListener(new QuestionTimeSpinnerChangeAction(service));
 	    JSpinner anlist = new JSpinner(spinnerTijdPerVraag);
 	    ((JSpinner.DefaultEditor) anlist.getEditor()).getTextField().setEditable(false);
 	    addToPanel(anlist);
@@ -117,16 +121,6 @@ public class SettingsOverviewPanel extends JPanel {
 			
 			// Default select chosen strategy
 			questionSelectorField.setSelectedItem(service.getQuestionSelector());
-			
-			questionSelectorField.addActionListener(
-					new ActionListener() {
-						@Override
-						public void actionPerformed(ActionEvent e) {
-							 QuestionSelector questionSelector = (QuestionSelector) questionSelectorField.getSelectedItem();
-							service.setQuestionSelector(questionSelector);
-						}
-					}
-			);
 		}
 		
 		if (service.getScoreCalculators() != null) {
@@ -136,45 +130,7 @@ public class SettingsOverviewPanel extends JPanel {
 			
 			// Default score calculator chosen strategy
 			scoreCalculatorField.setSelectedItem(service.getScoreCalculator());
-			
-			scoreCalculatorField.addActionListener(
-					new ActionListener() {
-						@Override
-						public void actionPerformed(ActionEvent e) {
-							ScoreCalculator scoreCalculator = (ScoreCalculator) scoreCalculatorField.getSelectedItem();
-							service.setScoreCalculator(scoreCalculator);
-						}
-					}
-			);
 		}
-		
-		spinnerAantalVragen.addChangeListener(
-			new ChangeListener() {
-				@Override
-				public void stateChanged(ChangeEvent e) {
-					int aantal = (int) spinnerAantalVragen.getValue();
-					try {
-						service.setNumberOfQuestions(aantal);
-					} catch(Exception ex) {
-						spinnerAantalVragen.setValue(aantal-1);
-					}
-				}
-			}
-		);
-		
-		spinnerTijdPerVraag.addChangeListener(
-				new ChangeListener() {
-					@Override
-					public void stateChanged(ChangeEvent e) {
-						int aantal = (int) spinnerTijdPerVraag.getValue();
-						try {
-							service.setTimePerQuestion(aantal);
-						} catch(Exception ex) {
-							spinnerTijdPerVraag.setValue(aantal-1);
-						}
-					}
-				}
-			);
 		
 	}
 	

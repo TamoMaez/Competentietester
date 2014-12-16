@@ -2,21 +2,15 @@ package controller.question;
 
 import java.awt.Component;
 import java.awt.event.ActionEvent;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 
-import controller.AbstractTestAction;
 import view.ViewException;
-import view.panels.GeneralTable;
-import view.panels.categories.CategoryTableModel;
 import view.panels.questions.QuestionDetailPanel;
 import view.panels.questions.QuestionOverviewPanel;
-import domain.Category;
+import controller.AbstractTestAction;
 import domain.YesNoQuestion;
 import domain.facade.CompetentieTesterFacade;
 
