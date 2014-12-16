@@ -2,6 +2,8 @@ package controller;
 
 import java.awt.event.ActionEvent;
 
+import org.apache.commons.io.FileExistsException;
+
 import domain.facade.CompetentieTesterFacade;
 
 public class SaveFileAction extends AbstractTestAction {
@@ -14,7 +16,12 @@ public class SaveFileAction extends AbstractTestAction {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		this.getService().writeToCurrentFile();
+		try {
+			this.getService().writeToCurrentFile();
+		} catch (FileExistsException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 
 }

@@ -29,8 +29,7 @@ public class NewQuestionCategoryAction extends AbstractTestAction {
 			panel.update();
 			panel.getCategoryTable().scrollToBottom();
 		}
-		
-		//observer nog toevoegen
+
 		setPanelAsContentForView(getOverviewPanel());
 	}
 

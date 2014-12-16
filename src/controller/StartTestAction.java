@@ -2,6 +2,8 @@ package controller;
 
 import java.awt.event.ActionEvent;
 
+import javax.swing.JOptionPane;
+
 import controller.AbstractTestAction;
 import view.ViewException;
 import view.panels.TestPanel;
@@ -18,18 +20,21 @@ public class StartTestAction extends AbstractTestAction {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		this.getService().start();
-		// Listener to get all categories from service...
-		Question question = getService().getNextQuestion();
-		getTestPanel().setQuestion(question);
-		
-		try {
-			getTestPanel().update();
-		} catch (ViewException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+		try{
+			this.getService().start();
+			// Listener to get all categories from service...
+			Question question = getService().getNextQuestion();
+			getTestPanel().setQuestion(question);
+			try {
+				getTestPanel().update();
+			} catch (ViewException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			setPanelAsContentForView(getTestPanel());
+		}catch(Exception e2){
+			JOptionPane.showMessageDialog(null, "Login to administrator and select a file with questions or create a new quiz");
 		}
-		setPanelAsContentForView(getTestPanel());
 	}
 
 	private TestPanel getTestPanel() {

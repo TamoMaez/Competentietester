@@ -14,6 +14,9 @@ import java.util.Map;
 
 
 
+
+import org.apache.commons.io.FileExistsException;
+
 import database.FileManager;
 import domain.Answer;
 import domain.Category;
@@ -107,6 +110,9 @@ public class CompetentieTesterFacade {
 	}
 	
 	public void start() {
+		if(getAllQuestions().size() < 1){
+			throw new DomainException("There are no questions!");
+		}
 		answers = new ArrayList<Answer>();
 		this.currentQuestionPosition = 0;
 		this.selectQuestions();
@@ -180,7 +186,7 @@ public class CompetentieTesterFacade {
 		fileManager.write(this);
 	}
 	
-	public void writeToCurrentFile(){
+	public void writeToCurrentFile() throws FileExistsException{
 		fileManager.writeToCurrentFile(this);
 	}
 	

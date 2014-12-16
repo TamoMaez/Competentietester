@@ -7,6 +7,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import domain.facade.CompetentieTesterFacade;
 
+import org.apache.commons.io.FileExistsException;
 import org.apache.commons.io.FilenameUtils;
 
 public class FileManager {
@@ -30,43 +31,18 @@ public class FileManager {
 		}
 	}
 	
-	/*
-	 * ONLY FOR TESTING
-	 *
-	public void writeToCurrentFile(CompetentieTesterFacade facade) {
+	public void writeToCurrentFile(CompetentieTesterFacade facade) throws FileExistsException {
+		if(fileChooser.getSelectedFile() == null) throw new FileExistsException("No current working directory or file");
 		writer.write(fileChooser.getSelectedFile(), facade);
 	}
-
+	
 	public void read(CompetentieTesterFacade facade) {
 		File file = chooseFile();
 		if(file != null && setReader(file)){
 			reader.read(file, facade);
 		}
 	}
-	*/
-	
-	public void writeToCurrentFile(CompetentieTesterFacade facade) {
-		writer.write(fileChooser.getSelectedFile(), facade);
-	}
-	
-	public void read(CompetentieTesterFacade facade) {
-		File file = new File("res/vragen-uit-excel.xlsx");
-		if(file != null && setReader(file)){
-			reader.read(file, facade);
-		}
-	}
-	
-	
-	
-	
-	/**
-	 * TOT HIER
-	 */
-	
-	
-	
-	
-	
+
 	private boolean setReader(File file) {
 		switch(FilenameUtils.getExtension(file.getName())){
 			case "xlsx" :

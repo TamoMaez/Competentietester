@@ -7,6 +7,8 @@ import java.util.Map;
 
 import javax.swing.JOptionPane;
 
+import org.apache.commons.io.FileExistsException;
+
 import view.ViewException;
 import view.panels.questions.QuestionDetailPanel;
 import view.panels.questions.QuestionOverviewPanel;
@@ -49,7 +51,12 @@ public class QuestionDoneAction extends AbstractTestAction {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			getService().writeToCurrentFile();;
+			try {
+				getService().writeToCurrentFile();
+			} catch (FileExistsException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			};
 		}
 		
 		// check vraag 

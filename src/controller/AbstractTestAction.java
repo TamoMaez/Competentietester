@@ -24,7 +24,7 @@ public abstract class AbstractTestAction extends AbstractAction {
 		return service;
 	}
 
-	private void setService(CompetentieTesterFacade service) {
+	protected void setService(CompetentieTesterFacade service) {
 		this.service = service;
 	}
 

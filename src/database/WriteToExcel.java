@@ -45,12 +45,10 @@ public class WriteToExcel implements FileWriter{
             	row.createCell(cellnum++).setCellValue(option.getStatement());
             }
             
-            if(!vraagType.equals("JaNeenVraag")){
-	            for(Option option : q.getOptions()){
-	            	if(!q.getCorrectOptions().contains(option)){
-	            		row.createCell(cellnum++).setCellValue(option.getStatement());
-	            	}
-	            }
+            for(Option option : q.getOptions()){
+            	if(!q.getCorrectOptions().contains(option)){
+            		row.createCell(cellnum++).setCellValue(option.getStatement());
+            	}
             }
             
             for(Category c : q.getCategories()){

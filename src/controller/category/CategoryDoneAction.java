@@ -3,6 +3,8 @@ package controller.category;
 import java.awt.event.ActionEvent;
 import java.util.List;
 
+import org.apache.commons.io.FileExistsException;
+
 import controller.AbstractTestAction;
 import view.ViewException;
 import view.panels.categories.CategoryDetailPanel;
@@ -33,7 +35,12 @@ public class CategoryDoneAction extends AbstractTestAction {
 			}
 			
 			getService().addCategory(getDetailPanel().getCreatedCategory());
-			getService().writeToCurrentFile();
+			try {
+				getService().writeToCurrentFile();
+			} catch (FileExistsException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 		
 		List<Category> categories = getService().getCategories();
