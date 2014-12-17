@@ -1,3 +1,8 @@
+/**
+ * 
+ * @author Ruben Thielemans, Tamo Maes, Georges Petrofski & Sam Hendrickx
+ *
+ */
 package database;
 
 import java.io.File;
